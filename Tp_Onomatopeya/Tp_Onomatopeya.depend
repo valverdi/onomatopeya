@@ -961,8 +961,9 @@
 1745601100 c:\users\tomasballestetros\onedrive\documentos\github\onomatopeya\tp_onomatopeya\x86_64-w64-mingw32\include\sdl3\sdl_oldnames.h
 	<SDL3/SDL_platform_defines.h>
 
-1745617206 source:c:\users\ten\onedrive\documentos\github\onomatopeya\tp_onomatopeya\main.c
+1745618186 source:c:\users\ten\onedrive\documentos\github\onomatopeya\tp_onomatopeya\main.c
 	<SDL2/SDL.h>
+	<SDL2/SDL_ttf.h>
 	<stdio.h>
 
 1745601099 c:\users\ten\onedrive\documentos\github\onomatopeya\tp_onomatopeya\x86_64-w64-mingw32\include\sdl3\sdl.h
@@ -1834,6 +1835,11 @@
 
 1732392901 c:\users\ten\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_misc.h
 	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1641928995 c:\users\ten\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_ttf.h
+	"SDL.h"
 	"begin_code.h"
 	"close_code.h"
 
