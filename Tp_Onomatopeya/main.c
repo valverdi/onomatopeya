@@ -2,14 +2,15 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 #include <stdio.h>
+#include "lista-enlazada.h"
 
 // Macros para tamaño de ventana
 #define VENTANA_ANCHO 800
 #define VENTANA_ALTO 600
 
 // Macros para tamaño de botón
-#define BOTON_ANCHO 300
-#define BOTON_ALTO 60
+#define BOTON_ANCHO 400
+#define BOTON_ALTO 100
 #define ESPACIADO 30
 
 
@@ -17,12 +18,15 @@ void jugar();
 void mostrarRanking();
 void salir();
 
-
 int dentroDeBoton(int x, int y, SDL_Rect boton);
 
 void renderizarTexto(SDL_Renderer* renderer, const char* texto, TTF_Font* font, SDL_Color color, SDL_Rect* boton);
 
+
 int main() {
+
+    t_lista p;
+
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
         printf("Error inicializando SDL: %s\n", SDL_GetError());
         return 1;
@@ -82,11 +86,11 @@ int main() {
                 int y = e.button.y;
 
                 if (dentroDeBoton(x, y, botonJugar)) {
-                    jugar();
+                    jugar(&p);
                 } else if (dentroDeBoton(x, y, botonRanking)) {
-                    mostrarRanking();
+                    mostrarRanking(&p);
                 } else if (dentroDeBoton(x, y, botonSalir)) {
-                    salir();
+                    salir(&p);
                     salirDelPrograma = 1;
                 }
             }
@@ -144,14 +148,34 @@ void renderizarTexto(SDL_Renderer* renderer, const char* texto, TTF_Font* font, 
     SDL_FreeSurface(surface);
 }
 
-void salir() {
-    printf("Has seleccionado Salir\n");
+void salir(t_lista* p) {
+    if(!lista_vacia(p))
+        vaciar_lista(p);
+
+    printf("Saliendo\n");
+
 }
 
-void mostrarRanking() {
-    printf("Has seleccionado Mostrar Ranking\n");
+void mostrarRanking(t_lista* p) {
+    if(!lista_vacia(p))
+    {
+        printf("Mostrando Ranking\n");
+    ///Hay que hacer la funcion de printear una estructura de un String|int
+        //mostrar_lista(p);
+    }
+    else
+    {
+        printf("Intenta mostrar lista vacia");
+    }
 }
 
-void jugar() {
-    printf("Has seleccionado Jugar\n");
+void jugar(t_lista* p) {
+    printf("Iniciando Partida\n");
+    ///pedir jugadores
+
+    ///elegir jugador
+
+    ///llamar a funcion de biblioteca aparte
+
+    ///siguiente jugador
 }

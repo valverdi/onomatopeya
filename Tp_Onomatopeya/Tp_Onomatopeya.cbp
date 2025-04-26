@@ -39,6 +39,14 @@
 			<Add option="-lSDL2_ttf" />
 			<Add directory="SDL2/lib" />
 		</Linker>
+		<Unit filename="lista-enlazada.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="lista-enlazada.h" />
+		<Unit filename="macros.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="macros.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
