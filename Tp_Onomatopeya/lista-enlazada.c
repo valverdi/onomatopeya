@@ -52,26 +52,6 @@ int poner_al_comienzo_lista(t_lista* pl, const void* dato, size_t tamElem)
     return OK;
 }
 
-int ponerAlComienzoDeLaListaFacu (t_lista* pl, const void* dato, size_t tam)
-{
-    Nodo* nuevo = (Nodo*) malloc (sizeof(Nodo));
-    if (!nuevo)
-        return LISTA_LLENA;
-
-    nuevo->elem = malloc (sizeof(tam));
-
-    if(!nuevo->elem)
-        return LISTA_LLENA;
-
-    memcpy (nuevo->elem,dato,tam);
-    nuevo->nodoSig=*pl;
-    nuevo->tamElem = tam;
-
-
-    *pl = nuevo;
-
-    return OK;
-}
 
 int poner_al_final_lista(t_lista* pl, const void* dato, size_t tamElem)
 {
@@ -104,59 +84,7 @@ int poner_al_final_lista(t_lista* pl, const void* dato, size_t tamElem)
 }
 
 
-int ponerAlFinalDeLaListaFacu (t_lista* pl,const void* elem, size_t tam)
-{
-    Nodo* Nuevo = (Nodo*) malloc (sizeof(Nodo));
-    Nuevo->elem = malloc(tam);
 
-    if(!Nuevo || !Nuevo->elem)
-    {
-        free(Nuevo->elem);
-        free (Nuevo);
-        return LISTA_LLENA;
-    }
-
-    memcpy(Nuevo->elem,elem,tam);
-    Nuevo ->nodoSig=NULL;
-    Nuevo->tamElem=tam;
-
-    while(*pl)
-    {
-        pl = &(*pl)->nodoSig;
-    }
-
-    *pl = Nuevo;
-
-    return OK;
-
-
-}
-
-int ponerEnOrdenDeListaFacu (t_lista* pl,const void* elem, size_t tam,int(*cmp)(const void*, const void*))
-{
-    Nodo* Nuevo = (Nodo*) malloc (sizeof(Nodo));
-    Nuevo->elem = malloc(tam);
-
-    if(!Nuevo || !Nuevo->elem)
-    {
-        free(Nuevo->elem);
-        free (Nuevo);
-        return LISTA_LLENA;
-    }
-
-    memcpy(Nuevo->elem,elem,tam);
-    Nuevo->tamElem=tam;
-
-    while(*pl && (cmp(elem,(*pl)->elem))>0)
-    {
-        pl = &(*pl)->nodoSig;
-    }
-
-    Nuevo->nodoSig=*pl;
-    *pl=Nuevo;
-
-    return OK;
-}
 
 
 
@@ -209,19 +137,6 @@ void vaciar_lista(t_lista* pl)
 
 }
 
-void vaciarListaFacu (t_lista* pl)
-{
-    Nodo* elim;
-
-    while(*pl)
-    {
-        elim=*pl;
-        *pl = elim->nodoSig;
-
-        free(elim->elem);
-        free (elim);
-    }
-}
 
 int sacar_primero_lista(t_lista* pl, void* dato, size_t tamElem)
 {
@@ -401,46 +316,7 @@ Nodo* buscarXclave(t_lista* pl, void* clave, size_t tamClave, int(*cmp)(const vo
 }
 
 
-int OrdenarListaFacu (t_lista* pl, int (*cmp)(const void*,const void*))
-{
-    Nodo* aux;
 
-    if (*pl)
-        return LISTA_VACIA;
-
-    while (*pl)
-    {
-        aux = sacar_nodo_menor (pl,cmp);
-        aux->nodoSig= *pl;
-        *pl = aux;
-        pl=&(*pl)->nodoSig;
-    }
-
-    return OK;
-}
-
-Nodo* SacarMenorFacu (t_lista* pl,int (*cmp)(const void*,const void*))
-{
-    Nodo* menor = *pl;
-    Nodo** AnteriorAlMenor = pl;
-
-    if(!*pl)
-        return LISTA_VACIA;
-
-    pl=&(*pl)->nodoSig;
-
-    while (*pl)
-    {
-        if(cmp(menor->elem, (*pl)->elem)>0)
-        {
-            menor=*pl;
-            AnteriorAlMenor=pl;
-        }
-        pl = &(*pl)->nodoSig;
-    }
-    *AnteriorAlMenor=menor->nodoSig;
-    return OK;
-}
 
 
 
@@ -454,46 +330,3 @@ void map_lista(const t_lista* pl, void(*accion)(void*, void*), void* extra)
 }
 
 
-int ordenar_lista_seleccionFacu(t_lista* pl, int(*cmp)(const void*, const void*))
-{
-    Nodo* auxiliar;
-    if(!*pl)
-       {
-           return LISTA_VACIA;
-       }
-
-    while(*pl)
-        {
-            auxiliar=sacar_nodo_menorFacu(pl,cmp);
-            auxiliar->nodoSig = *pl;
-            *pl = auxiliar;
-            pl=&(*pl)->nodoSig;
-        }
-        return OK;
-}
-
-
-Nodo* sacar_nodo_menorFacu(t_lista* pl, int(*cmp)(const void*, const void*))
-{
-    Nodo* menor =*pl;
-    Nodo** Anterior=pl;
-
-    if(!*pl)
-    {
-        return NULL;
-    }
-
-    pl= &(*pl)->nodoSig;
-
-    while(*pl)
-    {
-        if(cmp(menor->elem, (*pl)->elem)>0)
-        {
-            Anterior= pl;
-            menor= *pl;
-        }
-        pl= &(*pl)->nodoSig;
-    }
-   *Anterior= menor->nodoSig;
-   return menor;
-}

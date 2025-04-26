@@ -31,8 +31,7 @@ Nodo* sacar_nodo_menor(t_lista* pl, int(*cmp)(const void*, const void*));
 int ordenar_lista_seleccion(t_lista* pl, int(*cmp)(const void*, const void*));
 
 Nodo* buscarXclave(t_lista* pl, void* clave, size_t tamClave, int(*cmp)(const void*, const void*));
-Nodo* sacar_nodo_menorFacu(t_lista* pl, int(*cmp)(const void*, const void*));
-int ordenar_lista_seleccionFacu(t_lista* pl, int(*cmp)(const void*, const void*));
+
 
 
 
