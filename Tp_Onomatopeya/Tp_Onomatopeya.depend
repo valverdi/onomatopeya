@@ -961,10 +961,11 @@
 1745601100 c:\users\tomasballestetros\onedrive\documentos\github\onomatopeya\tp_onomatopeya\x86_64-w64-mingw32\include\sdl3\sdl_oldnames.h
 	<SDL3/SDL_platform_defines.h>
 
-1745618186 source:c:\users\ten\onedrive\documentos\github\onomatopeya\tp_onomatopeya\main.c
+1745788755 source:c:\users\ten\onedrive\documentos\github\onomatopeya\tp_onomatopeya\main.c
 	<SDL2/SDL.h>
 	<SDL2/SDL_ttf.h>
 	<stdio.h>
+	"lista-enlazada.h"
 
 1745601099 c:\users\ten\onedrive\documentos\github\onomatopeya\tp_onomatopeya\x86_64-w64-mingw32\include\sdl3\sdl.h
 	<SDL3/SDL_stdinc.h>
@@ -1842,4 +1843,18 @@
 	"SDL.h"
 	"begin_code.h"
 	"close_code.h"
+
+1745698493 source:c:\users\ten\onedrive\documentos\github\onomatopeya\tp_onomatopeya\lista-enlazada.c
+	"lista-enlazada.h"
+
+1745681110 c:\users\ten\onedrive\documentos\github\onomatopeya\tp_onomatopeya\lista-enlazada.h
+	"macros.h"
+
+1745635328 c:\users\ten\onedrive\documentos\github\onomatopeya\tp_onomatopeya\macros.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1745635328 source:c:\users\ten\onedrive\documentos\github\onomatopeya\tp_onomatopeya\macros.c
+	"macros.h"
 
