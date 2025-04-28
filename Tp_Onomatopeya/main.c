@@ -2,6 +2,8 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 #include <stdio.h>
+#include <time.h>
+#include <windows.h>
 #include "lista-enlazada.h"
 
 // Macros para tamaño de ventana
@@ -18,6 +20,11 @@ typedef struct {
     int puntaje;
 } Jugador;
 
+typedef struct {
+    char matriz[3][3];
+} Tablero;
+
+
 void cargarJugadoresPrueba(t_lista* pl);
 
 void jugar(SDL_Renderer* renderer, TTF_Font* font, t_lista* p) ;
@@ -30,6 +37,15 @@ void renderizarJugador(SDL_Renderer* renderer, TTF_Font* font, const Jugador* ju
 
 void pedirCantidadJugadores(SDL_Renderer* renderer, TTF_Font* font, int* cantidadJugadores);
 void pedirNombres(SDL_Renderer* renderer, TTF_Font* font, int cantidadJugadores, t_lista* p);
+void empezar_partida(SDL_Renderer* renderer, TTF_Font* font, int cantidadJugadores, t_lista* p);
+void jugarPartida(SDL_Renderer* renderer, TTF_Font* font, Jugador* jugadorActual);
+
+void inicializarTablero(Tablero* t);
+void dibujarTablero(SDL_Renderer* renderer, TTF_Font* font, Tablero* t);
+int clickEnTablero(Tablero* t, int x, int y, char simbolo);
+void maquinaJuega(Tablero* t, char ficha);
+char hayGanador(Tablero* t);
+int tableroLleno(Tablero* t);
 
 int dentroDeBoton(int x, int y, SDL_Rect boton);
 void renderizarTexto(SDL_Renderer* renderer, const char* texto, TTF_Font* font, SDL_Color color, SDL_Rect* boton);
@@ -259,7 +275,342 @@ void jugar(SDL_Renderer* renderer, TTF_Font* font, t_lista* p) {
     pedirNombres(renderer, font, cantidadJugadores, p);
     SDL_StopTextInput();
 
-    // seguir el flujo...
+    SDL_StartTextInput();
+    empezar_partida(renderer, font, cantidadJugadores, p);
+    SDL_StopTextInput();
+}
+
+void empezar_partida(SDL_Renderer* renderer, TTF_Font* font, int cantidadJugadores, t_lista* p){
+    Jugador JugadorActual;
+
+    //elegir random
+    srand(time(NULL));
+    int numeroAleatorio = rand() % cantidadJugadores + 1;
+
+    //sacarlo de la lista
+    sacar_de_pos_lista(p, &JugadorActual, sizeof(JugadorActual), numeroAleatorio);
+
+    //jugar la partida
+    jugarPartida(renderer, font, &JugadorActual);
+
+    //guardar en la lista
+    int cmpJugadores(const void* a, const void* b)
+    {
+        const Jugador* jugadorA = (const Jugador*)a;
+        const Jugador* jugadorB = (const Jugador*)b;
+
+        if (jugadorA->puntaje > jugadorB->puntaje)
+            return 1;
+        else if (jugadorA->puntaje < jugadorB->puntaje)
+            return -1;
+        else
+            return 0;
+    }
+
+
+    poner_ordenado_lista(p, &JugadorActual, sizeof(Jugador), &cmpJugadores);
+
+    Sleep(1000);
+
+    SDL_Color colorTexto = {255, 255, 255, 255};
+    SDL_Rect areaDerecha = {250, 0, VENTANA_ANCHO - 250, VENTANA_ALTO};
+    SDL_SetRenderDrawColor(renderer, 33, 33, 33, 255);
+    SDL_RenderFillRect(renderer, &areaDerecha);
+    SDL_RenderPresent(renderer);
+}
+
+void jugarPartida(SDL_Renderer* renderer, TTF_Font* font, Jugador* jugador){
+    Tablero tablero;
+    inicializarTablero(&tablero);
+
+    int turnoJugador = 1; // Empieza el jugador
+    int jugando = 1;
+
+    SDL_Color colorTexto = {255, 255, 255, 255};
+    SDL_Rect areaDerecha = {250, 0, VENTANA_ANCHO - 250, VENTANA_ALTO};
+
+    while (jugando)
+    {
+        // Limpiar solo el área derecha
+        SDL_SetRenderDrawColor(renderer, 33, 33, 33, 255);
+        SDL_RenderFillRect(renderer, &areaDerecha);
+
+        // Dibujar el tablero
+        dibujarTablero(renderer, font, &tablero);
+
+        SDL_RenderPresent(renderer);
+
+        SDL_Event e;
+        while (SDL_WaitEvent(&e))
+        {
+            if (e.type == SDL_QUIT)
+            {
+                jugando = 0;
+                break;
+            }
+
+            if (turnoJugador && e.type == SDL_MOUSEBUTTONDOWN && e.button.button == SDL_BUTTON_LEFT)
+            {
+                int x = e.button.x;
+                int y = e.button.y;
+
+                if (clickEnTablero(&tablero, x, y, 'X')) // jugador juega con 'X'
+                {
+                    if (hayGanador(&tablero) == 'X') {
+                        jugador->puntaje += 2; // GANÓ, sumar puntaje
+                        jugando = 0;
+                        SDL_SetRenderDrawColor(renderer, 33, 33, 33, 255);
+                        SDL_RenderFillRect(renderer, &areaDerecha);
+
+                        // Dibujar el tablero
+                        dibujarTablero(renderer, font, &tablero);
+
+                        SDL_RenderPresent(renderer);
+                        break;
+                    }
+                    if (tableroLleno(&tablero)) {
+                        jugando = 0; // EMPATE
+                        jugador->puntaje += 1;
+
+                        SDL_SetRenderDrawColor(renderer, 33, 33, 33, 255);
+                        SDL_RenderFillRect(renderer, &areaDerecha);
+
+                        // Dibujar el tablero
+                        dibujarTablero(renderer, font, &tablero);
+
+                        SDL_RenderPresent(renderer);
+                        break;
+                    }
+                    turnoJugador = 0; // Pasa turno a la máquina
+                }
+            }
+            else if (!turnoJugador)
+            {
+                // Turno de la máquina
+                maquinaJuega(&tablero, 'O');
+
+                if (hayGanador(&tablero)== 'O') {
+                    jugando = 0; // PERDIÓ
+                    jugador->puntaje -= 1;
+                    SDL_SetRenderDrawColor(renderer, 33, 33, 33, 255);
+                    SDL_RenderFillRect(renderer, &areaDerecha);
+
+                    // Dibujar el tablero
+                    dibujarTablero(renderer, font, &tablero);
+
+                    SDL_RenderPresent(renderer);
+                    break;
+                }
+                if (tableroLleno(&tablero)) {
+                    jugando = 0;
+                    jugador->puntaje += 1; // EMPATE
+                    SDL_SetRenderDrawColor(renderer, 33, 33, 33, 255);
+                    SDL_RenderFillRect(renderer, &areaDerecha);
+
+                    // Dibujar el tablero
+                    dibujarTablero(renderer, font, &tablero);
+
+                    SDL_RenderPresent(renderer);
+                    break;
+                }
+                turnoJugador = 1; // Vuelve a ser el turno del jugador
+            }
+
+            SDL_SetRenderDrawColor(renderer, 33, 33, 33, 255);
+            SDL_RenderFillRect(renderer, &areaDerecha);
+
+            // Dibujar el tablero
+            dibujarTablero(renderer, font, &tablero);
+
+            SDL_RenderPresent(renderer);
+        }
+    }
+}
+
+void inicializarTablero(Tablero* t){
+    for (int i = 0; i < 3; i++)
+    {
+        for (int j = 0; j < 3; j++)
+        {
+            t->matriz[i][j] = ' '; // Espacio vacío
+        }
+    }
+}
+
+void dibujarTablero(SDL_Renderer* renderer, TTF_Font* font, Tablero* t) {
+    SDL_Color colorTexto = {255, 255, 255, 255};
+
+    SDL_Color ColorX = {100, 149, 237, 255}; // Azul claro (Cornflower Blue)
+    SDL_Color ColorO = {220, 20, 60, 255};   // Rojo carmesí (Crimson)
+
+    int xOffset = 250; // Desplazamiento desde el borde izquierdo
+    int yOffset = 0;   // Empezar desde la parte superior de la zona derecha
+    int anchoZonaDerecha = VENTANA_ANCHO - 250;
+    int altoZonaDerecha = VENTANA_ALTO;
+
+    TTF_Font* fuente = TTF_OpenFont("assets/Sora-Bold.ttf", 50);
+
+    // Calcular el tamaño de cada casilla basado en el tamaño del área disponible
+    int size = (anchoZonaDerecha < altoZonaDerecha) ? anchoZonaDerecha / 3 : altoZonaDerecha / 3;
+
+    // Dibujar las líneas del tablero (3x3)
+    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255); // Blanco
+    for (int i = 1; i < 3; i++) {
+        // Líneas horizontales
+        SDL_RenderDrawLine(renderer, xOffset, yOffset + i * size, xOffset + 3 * size, yOffset + i * size);
+        // Líneas verticales
+        SDL_RenderDrawLine(renderer, xOffset + i * size, yOffset, xOffset + i * size, yOffset + 3 * size);
+    }
+
+    // Dibujar X y O en las casillas
+    for (int fila = 0; fila < 3; fila++) {
+        for (int col = 0; col < 3; col++) {
+            char ficha = t->matriz[fila][col];
+            if (ficha != ' ') { // Solo dibujar si la casilla no está vacía
+                char texto[2] = {ficha, '\0'}; // Convertir la ficha a una cadena de texto
+                if( ficha == 'X')
+                {
+                    SDL_Surface* surface = TTF_RenderText_Solid(fuente, texto, ColorX);
+                    SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
+
+                    // Calcular la posición de la casilla
+                    SDL_Rect destRect = {xOffset + col * size + (size - surface->w) / 2,
+                                         yOffset + fila * size + (size - surface->h) / 2,
+                                         surface->w, surface->h};
+
+                    // Dibujar la ficha (X o O)
+                    SDL_RenderCopy(renderer, texture, NULL, &destRect);
+
+                    SDL_DestroyTexture(texture);
+                    SDL_FreeSurface(surface);
+                }
+                else if(ficha == 'O')
+                {
+                    SDL_Surface* surface = TTF_RenderText_Solid(fuente, texto, ColorO);
+                    SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
+
+                    // Calcular la posición de la casilla
+                    SDL_Rect destRect = {xOffset + col * size + (size - surface->w) / 2,
+                                         yOffset + fila * size + (size - surface->h) / 2,
+                                         surface->w, surface->h};
+
+                    // Dibujar la ficha (X o O)
+                    SDL_RenderCopy(renderer, texture, NULL, &destRect);
+
+                    SDL_DestroyTexture(texture);
+                    SDL_FreeSurface(surface);
+                }
+            }
+        }
+    }
+}
+
+int clickEnTablero(Tablero* t, int x, int y, char simbolo){
+    int margenX = 250; // Porque dibujamos desde x = 250
+    int anchoCelda = (VENTANA_ANCHO - margenX) / 3;
+    int altoCelda = VENTANA_ALTO / 3;
+
+    // Ajustar coordenadas
+    x -= margenX;
+
+    if (x < 0 || y < 0 || x >= (VENTANA_ANCHO - margenX) || y >= VENTANA_ALTO)
+        return 0; // Click fuera del tablero
+
+    int col = x / anchoCelda;
+    int fil = y / altoCelda;
+
+    if (t->matriz[fil][col] == ' ')
+    {
+        t->matriz[fil][col] = simbolo;
+        return 1; // Movimiento válido
+    }
+    else
+        return 0; // Casilla ocupada
+}
+
+void maquinaJuega(Tablero* t, char ficha){
+    int vacias[9][2]; // Máximo 9 celdas vacías, guardamos (fila, columna)
+    int cantVacias = 0;
+
+    // Buscar todas las celdas vacías
+    for (int fila = 0; fila < 3; fila++)
+    {
+        for (int col = 0; col < 3; col++)
+        {
+            if (t->matriz[fila][col] == ' ')
+            {
+                vacias[cantVacias][0] = fila;
+                vacias[cantVacias][1] = col;
+                cantVacias++;
+            }
+        }
+    }
+
+    // Si no hay más lugares vacíos, no hace nada
+    if (cantVacias == 0)
+        return;
+
+    // Elegir una celda vacía al azar
+    int eleccion = rand() % cantVacias;
+    int filaElegida = vacias[eleccion][0];
+    int colElegida = vacias[eleccion][1];
+
+    // Colocar 'O' en la celda elegida
+    t->matriz[filaElegida][colElegida] = ficha;
+}
+
+char hayGanador(Tablero* t){
+    // Revisar filas
+    for (int i = 0; i < 3; i++)
+    {
+        if (t->matriz[i][0] != ' ' &&
+            t->matriz[i][0] == t->matriz[i][1] &&
+            t->matriz[i][1] == t->matriz[i][2])
+        {
+            return t->matriz[i][0];
+        }
+    }
+
+    // Revisar columnas
+    for (int j = 0; j < 3; j++)
+    {
+        if (t->matriz[0][j] != ' ' &&
+            t->matriz[0][j] == t->matriz[1][j] &&
+            t->matriz[1][j] == t->matriz[2][j])
+        {
+            return t->matriz[0][j];
+        }
+    }
+
+    // Revisar diagonales
+    if (t->matriz[0][0] != ' ' &&
+        t->matriz[0][0] == t->matriz[1][1] &&
+        t->matriz[1][1] == t->matriz[2][2])
+    {
+        return t->matriz[0][0];
+    }
+
+    if (t->matriz[0][2] != ' ' &&
+        t->matriz[0][2] == t->matriz[1][1] &&
+        t->matriz[1][1] == t->matriz[2][0])
+    {
+        return t->matriz[0][2];
+    }
+
+    // No hay ganador
+    return ' ';
+}
+
+int tableroLleno(Tablero* t){
+    for (int i = 0; i < 3; i++)
+    {
+        for (int j = 0; j < 3; j++)
+        {
+            if (t->matriz[i][j] == ' ')
+                return 0; // Hay al menos un espacio libre
+        }
+    }
+    return 1; // Todo lleno
 }
 
 void imprimirJugador(const void* dato) {
