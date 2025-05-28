@@ -24,10 +24,11 @@ typedef struct {
     char matriz[3][3];
 } Tablero;
 
+void leerArchivo(char* url, char* key, int* cantPartidas);
 
 void cargarJugadoresPrueba(t_lista* pl);
 
-void jugar(SDL_Renderer* renderer, TTF_Font* font, t_lista* p) ;
+void jugar(SDL_Renderer* renderer, TTF_Font* font, t_lista* p, int cantPartidas) ;
 void mostrarRanking(t_lista* pl, SDL_Renderer* renderer, TTF_Font* font) ;
 void salir();
 
@@ -37,7 +38,7 @@ void renderizarJugador(SDL_Renderer* renderer, TTF_Font* font, const Jugador* ju
 
 void pedirCantidadJugadores(SDL_Renderer* renderer, TTF_Font* font, int* cantidadJugadores);
 void pedirNombres(SDL_Renderer* renderer, TTF_Font* font, int cantidadJugadores, t_lista* p);
-void empezar_partida(SDL_Renderer* renderer, TTF_Font* font, int cantidadJugadores, t_lista* p);
+void empezar_partida(SDL_Renderer* renderer, TTF_Font* font, int cantidadJugadores, t_lista* p, int cantPartidas);
 void jugarPartida(SDL_Renderer* renderer, TTF_Font* font, Jugador* jugadorActual);
 
 void inicializarTablero(Tablero* t);
@@ -52,9 +53,14 @@ void renderizarTexto(SDL_Renderer* renderer, const char* texto, TTF_Font* font, 
 
 
 int main() {
+    int cantPartidas; //////////////////////////////////////////////////////////////////////////////leer del config
     int primeraEjecucion = 1;
     int estadoActual = 0;
     t_lista p;
+    char Url[100];
+    char key[7];
+
+    leerArchivo(Url, key, &cantPartidas);
 
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
         printf("Error inicializando SDL: %s\n", SDL_GetError());
@@ -117,7 +123,7 @@ int main() {
 
                 if (dentroDeBoton(x, y, botonJugar)) {
                     SDL_RenderPresent(renderer);
-                    jugar(renderer, font, &p);
+                    jugar(renderer, font, &p, cantPartidas);
                     estadoActual = 1;
                 } else if (dentroDeBoton(x, y, botonRanking)) {
                     SDL_RenderPresent(renderer);
@@ -204,7 +210,7 @@ void mostrarRanking(t_lista* pl, SDL_Renderer* renderer, TTF_Font* font) {
     SDL_SetRenderDrawColor(renderer, 33, 33, 33, 255);
     SDL_RenderFillRect(renderer, &areaDerecha);
 
-    ///cargarJugadoresPrueba(pl); //////////////////////////////////////////Funcion de prueba
+    ///cargarJugadoresPrueba(pl); //////////////////////////////////////////Aca se cargan los jugadores en la lista desde la api
 
     if (lista_vacia(pl)) {
         SDL_Surface* surface = TTF_RenderText_Solid(font, "No hay jugadores en el ranking.", colorTexto);
@@ -258,7 +264,7 @@ void mostrarRanking(t_lista* pl, SDL_Renderer* renderer, TTF_Font* font) {
     ///vaciar_lista(pl); //////////////////////////////////////////Funcion de prueba
 }
 
-void jugar(SDL_Renderer* renderer, TTF_Font* font, t_lista* p) {
+void jugar(SDL_Renderer* renderer, TTF_Font* font, t_lista* p, int cantPartidas) {
     int cantidadJugadores = 0;
 
     SDL_StartTextInput();
@@ -276,11 +282,11 @@ void jugar(SDL_Renderer* renderer, TTF_Font* font, t_lista* p) {
     SDL_StopTextInput();
 
     SDL_StartTextInput();
-    empezar_partida(renderer, font, cantidadJugadores, p);
+    empezar_partida(renderer, font, cantidadJugadores, p, cantPartidas);
     SDL_StopTextInput();
 }
 
-void empezar_partida(SDL_Renderer* renderer, TTF_Font* font, int cantidadJugadores, t_lista* p){
+void empezar_partida(SDL_Renderer* renderer, TTF_Font* font, int cantidadJugadores, t_lista* p, int cantPartidas){
     Jugador JugadorActual;
 
     //elegir random
@@ -291,7 +297,10 @@ void empezar_partida(SDL_Renderer* renderer, TTF_Font* font, int cantidadJugador
     sacar_de_pos_lista(p, &JugadorActual, sizeof(JugadorActual), numeroAleatorio);
 
     //jugar la partida
-    jugarPartida(renderer, font, &JugadorActual);
+    for (int i = 0; i<cantPartidas; i++)
+    {
+        jugarPartida(renderer, font, &JugadorActual);
+    }
 
     //guardar en la lista
     int cmpJugadores(const void* a, const void* b)
@@ -308,7 +317,7 @@ void empezar_partida(SDL_Renderer* renderer, TTF_Font* font, int cantidadJugador
     }
 
 
-    poner_ordenado_lista(p, &JugadorActual, sizeof(Jugador), &cmpJugadores);
+    poner_ordenado_lista(p, &JugadorActual, sizeof(Jugador), &cmpJugadores); ///enviar puntaje a api
 
     Sleep(1000);
 
@@ -357,7 +366,7 @@ void jugarPartida(SDL_Renderer* renderer, TTF_Font* font, Jugador* jugador){
                 if (clickEnTablero(&tablero, x, y, 'X')) // jugador juega con 'X'
                 {
                     if (hayGanador(&tablero) == 'X') {
-                        jugador->puntaje += 2; // GANÓ, sumar puntaje
+                        jugador->puntaje += 3; // GANÓ, sumar puntaje
                         jugando = 0;
                         SDL_SetRenderDrawColor(renderer, 33, 33, 33, 255);
                         SDL_RenderFillRect(renderer, &areaDerecha);
@@ -370,7 +379,7 @@ void jugarPartida(SDL_Renderer* renderer, TTF_Font* font, Jugador* jugador){
                     }
                     if (tableroLleno(&tablero)) {
                         jugando = 0; // EMPATE
-                        jugador->puntaje += 1;
+                        jugador->puntaje += 2;
 
                         SDL_SetRenderDrawColor(renderer, 33, 33, 33, 255);
                         SDL_RenderFillRect(renderer, &areaDerecha);
@@ -403,7 +412,7 @@ void jugarPartida(SDL_Renderer* renderer, TTF_Font* font, Jugador* jugador){
                 }
                 if (tableroLleno(&tablero)) {
                     jugando = 0;
-                    jugador->puntaje += 1; // EMPATE
+                    jugador->puntaje += 2; // EMPATE
                     SDL_SetRenderDrawColor(renderer, 33, 33, 33, 255);
                     SDL_RenderFillRect(renderer, &areaDerecha);
 
@@ -781,4 +790,24 @@ void cargarJugadoresPrueba(t_lista* pl) {
         poner_al_final_lista(pl, nombres[i], strlen(nombres[i]) + 1);
     }
 }
+
+void leerArchivo(char* url, char* key, int* cantPartidas)
+{
+    FILE* archivo = fopen("config.txt", "r");
+    if (archivo == NULL) {
+        perror("No se pudo abrir el archivo");
+        return;
+    }
+
+    // Leer URL y key
+    fscanf(archivo, " %[^|]| %[^\n]", url, key);
+
+    // Leer número entero en la segunda línea
+    fscanf(archivo, "%d", cantPartidas);
+
+    fclose(archivo);
+}
+
+
+
 
