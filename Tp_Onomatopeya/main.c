@@ -53,7 +53,7 @@ void renderizarTexto(SDL_Renderer* renderer, const char* texto, TTF_Font* font, 
 
 
 int main() {
-    int cantPartidas; //////////////////////////////////////////////////////////////////////////////leer del config
+    int cantPartidas;
     int primeraEjecucion = 1;
     int estadoActual = 0;
     t_lista p;
@@ -287,41 +287,52 @@ void jugar(SDL_Renderer* renderer, TTF_Font* font, t_lista* p, int cantPartidas)
 }
 
 void empezar_partida(SDL_Renderer* renderer, TTF_Font* font, int cantidadJugadores, t_lista* p, int cantPartidas){
+
+    SDL_Color colorTexto = {255, 255, 255, 255};
+
     Jugador JugadorActual;
 
-    //elegir random
-    srand(time(NULL));
-    int numeroAleatorio = rand() % cantidadJugadores + 1;
-
-    //sacarlo de la lista
-    sacar_de_pos_lista(p, &JugadorActual, sizeof(JugadorActual), numeroAleatorio);
-
-    //jugar la partida
-    for (int i = 0; i<cantPartidas; i++)
+    while(!lista_vacia(p))
     {
-        jugarPartida(renderer, font, &JugadorActual);
+        //elegir random
+        srand(time(NULL));
+        int numeroAleatorio = rand() % cantidadJugadores + 1;
+
+        //sacarlo de la lista
+        sacar_de_pos_lista(p, &JugadorActual, sizeof(JugadorActual), numeroAleatorio);
+
+        printf("Jugando: %s\n", JugadorActual.nombre);
+
+        //jugar la partida
+        for (int i = 0; i<cantPartidas; i++)
+        {
+            jugarPartida(renderer, font, &JugadorActual);
+        }
+        cantidadJugadores--;
     }
 
+    ///enviar puntaje a api
+/*
     //guardar en la lista
     int cmpJugadores(const void* a, const void* b)
     {
-        const Jugador* jugadorA = (const Jugador*)a;
-        const Jugador* jugadorB = (const Jugador*)b;
+            const Jugador* jugadorA = (const Jugador*)a;
+            const Jugador* jugadorB = (const Jugador*)b;
 
-        if (jugadorA->puntaje > jugadorB->puntaje)
-            return 1;
-        else if (jugadorA->puntaje < jugadorB->puntaje)
-            return -1;
-        else
-            return 0;
+            if (jugadorA->puntaje > jugadorB->puntaje)
+                return 1;
+            else if (jugadorA->puntaje < jugadorB->puntaje)
+                return -1;
+            else
+                return 0;
     }
 
-
-    poner_ordenado_lista(p, &JugadorActual, sizeof(Jugador), &cmpJugadores); ///enviar puntaje a api
+    poner_ordenado_lista(p, &JugadorActual, sizeof(Jugador), &cmpJugadores);
+*/
+    vaciar_lista(p);
 
     Sleep(1000);
 
-    SDL_Color colorTexto = {255, 255, 255, 255};
     SDL_Rect areaDerecha = {250, 0, VENTANA_ANCHO - 250, VENTANA_ALTO};
     SDL_SetRenderDrawColor(renderer, 33, 33, 33, 255);
     SDL_RenderFillRect(renderer, &areaDerecha);
@@ -346,6 +357,7 @@ void jugarPartida(SDL_Renderer* renderer, TTF_Font* font, Jugador* jugador){
 
         // Dibujar el tablero
         dibujarTablero(renderer, font, &tablero);
+        renderizarJugador(renderer, font, jugador, colorTexto, 450, 10);
 
         SDL_RenderPresent(renderer);
 
@@ -373,6 +385,7 @@ void jugarPartida(SDL_Renderer* renderer, TTF_Font* font, Jugador* jugador){
 
                         // Dibujar el tablero
                         dibujarTablero(renderer, font, &tablero);
+                        renderizarJugador(renderer, font, jugador, colorTexto, 450, 10);
 
                         SDL_RenderPresent(renderer);
                         break;
@@ -386,6 +399,7 @@ void jugarPartida(SDL_Renderer* renderer, TTF_Font* font, Jugador* jugador){
 
                         // Dibujar el tablero
                         dibujarTablero(renderer, font, &tablero);
+                        renderizarJugador(renderer, font, jugador, colorTexto, 450, 10);
 
                         SDL_RenderPresent(renderer);
                         break;
@@ -406,6 +420,7 @@ void jugarPartida(SDL_Renderer* renderer, TTF_Font* font, Jugador* jugador){
 
                     // Dibujar el tablero
                     dibujarTablero(renderer, font, &tablero);
+                    renderizarJugador(renderer, font, jugador, colorTexto, 450, 10);
 
                     SDL_RenderPresent(renderer);
                     break;
@@ -418,6 +433,7 @@ void jugarPartida(SDL_Renderer* renderer, TTF_Font* font, Jugador* jugador){
 
                     // Dibujar el tablero
                     dibujarTablero(renderer, font, &tablero);
+                    renderizarJugador(renderer, font, jugador, colorTexto, 450, 10);
 
                     SDL_RenderPresent(renderer);
                     break;
@@ -430,6 +446,7 @@ void jugarPartida(SDL_Renderer* renderer, TTF_Font* font, Jugador* jugador){
 
             // Dibujar el tablero
             dibujarTablero(renderer, font, &tablero);
+            renderizarJugador(renderer, font, jugador, colorTexto, 450, 10);
 
             SDL_RenderPresent(renderer);
         }
@@ -629,7 +646,7 @@ void imprimirJugador(const void* dato) {
 
 void renderizarJugador(SDL_Renderer* renderer, TTF_Font* font, const Jugador* jugador, SDL_Color color, int x, int y) {
     char texto[100];
-    snprintf(texto, sizeof(texto), "- %s (Puntaje: %d)", jugador->nombre, jugador->puntaje);
+    snprintf(texto, sizeof(texto), "%s | Puntaje: %d", jugador->nombre, jugador->puntaje);
 
     SDL_Surface* surface = TTF_RenderText_Solid(font, texto, color);
     SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
@@ -791,8 +808,7 @@ void cargarJugadoresPrueba(t_lista* pl) {
     }
 }
 
-void leerArchivo(char* url, char* key, int* cantPartidas)
-{
+void leerArchivo(char* url, char* key, int* cantPartidas){
     FILE* archivo = fopen("config.txt", "r");
     if (archivo == NULL) {
         perror("No se pudo abrir el archivo");

@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1748472868 source:c:\users\tomasballestetros\onedrive\documentos\github\onomatopeya\tp_onomatopeya\main.c
+1748475764 source:c:\users\tomasballestetros\onedrive\documentos\github\onomatopeya\tp_onomatopeya\main.c
 	<SDL2/SDL.h>
 	<SDL2/SDL_ttf.h>
 	<stdio.h>
