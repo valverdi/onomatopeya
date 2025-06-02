@@ -52,7 +52,6 @@ int poner_al_comienzo_lista(t_lista* pl, const void* dato, size_t tamElem)
     return OK;
 }
 
-
 int poner_al_final_lista(t_lista* pl, const void* dato, size_t tamElem)
 {
     Nodo* nuevoNodo = (Nodo*) malloc(sizeof(Nodo));
@@ -82,11 +81,6 @@ int poner_al_final_lista(t_lista* pl, const void* dato, size_t tamElem)
 
     return OK;
 }
-
-
-
-
-
 
 int poner_ordenado_lista(t_lista* pl, const void* dato, size_t tamElem, int(*cmp)(const void*, const void*))
 {
@@ -136,7 +130,6 @@ void vaciar_lista(t_lista* pl)
 
 
 }
-
 
 int sacar_primero_lista(t_lista* pl, void* dato, size_t tamElem)
 {
@@ -314,11 +307,6 @@ Nodo* buscarXclave(t_lista* pl, void* clave, size_t tamClave, int(*cmp)(const vo
 
     return nodoClave;
 }
-
-
-
-
-
 
 void map_lista(const t_lista* pl, void(*accion)(void*, void*), void* extra)
 {

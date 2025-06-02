@@ -39,6 +39,14 @@
 			<Add option="-lSDL2_ttf" />
 			<Add directory="SDL2/lib" />
 		</Linker>
+		<Unit filename="api.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="api.h" />
+		<Unit filename="cJson.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="cJson.h" />
 		<Unit filename="lista-enlazada.c">
 			<Option compilerVar="CC" />
 		</Unit>

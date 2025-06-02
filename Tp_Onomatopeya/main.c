@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <time.h>
 #include <windows.h>
+#include "api.h"
 #include "lista-enlazada.h"
 
 // Macros para tamaño de ventana
@@ -14,11 +15,6 @@
 #define BOTON_ANCHO 150
 #define BOTON_ALTO 50
 #define ESPACIADO 30
-
-typedef struct {
-    char nombre[50];
-    int puntaje;
-} Jugador;
 
 typedef struct {
     char matriz[3][3];
@@ -310,6 +306,8 @@ void empezar_partida(SDL_Renderer* renderer, TTF_Font* font, int cantidadJugador
         }
         cantidadJugadores--;
     }
+
+    enviar_jugadores_con_curl("https://algoritmos-api.azurewebsites.net/api/TaCTi", "buffer", &JugadorActual, 1);
 
     ///enviar puntaje a api
 /*

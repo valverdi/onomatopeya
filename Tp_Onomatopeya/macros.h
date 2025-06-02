@@ -70,6 +70,10 @@ typedef struct sNodoA
 }NodoA;
 
 
+typedef struct {
+    char nombre[50];
+    int puntaje;
+} Jugador;
 
 
 

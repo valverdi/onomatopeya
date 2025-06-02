@@ -4,21 +4,6 @@
 #include <curl/curl.h>
 #include "api.h"
 
-typedef struct {
-    const char* nombre;
-    int puntos;
-} Jugador;
-
-void enviar_jugadores_con_curl(const char* url, const char* codigoGrupo, Jugador* jugadores, int cantidad);
-int main() {
-    Jugador jugadores[] = {
-        {"pedro", 10},
-        {"Juan", 2}
-    };
-    enviar_jugadores_con_curl("https://algoritmos-api.azurewebsites.net/api/TaCTi/", "buffer", jugadores, 2);
-    return 0;
-}
-
 void enviar_jugadores_con_curl(const char* url, const char* codigoGrupo, Jugador* jugadores, int cantidad) {
     // Armar el JSON manualmente
     char json[2048];
@@ -34,7 +19,7 @@ void enviar_jugadores_con_curl(const char* url, const char* codigoGrupo, Jugador
             "      \"puntos\": %d\n"
             "    }%s\n",
             jugadores[i].nombre,
-            jugadores[i].puntos,
+            jugadores[i].puntaje,
             (i < cantidad - 1) ? "," : ""
         );
         strcat(json, jugadorStr);
