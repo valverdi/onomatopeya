@@ -3,6 +3,96 @@
 #include <string.h>
 #include <curl/curl.h>
 #include "api.h"
+#define MAX_JUGADORES 100
+#define TAM_BUFFER_RESPUESTA 8192
+
+
+typedef struct {
+    char buffer[TAM_BUFFER_RESPUESTA];
+    size_t size;
+} ResponseData;
+
+size_t escribir_callback(void* contenido, size_t size, size_t nmemb, void* userp) {
+    ResponseData* resp = (ResponseData*)userp;
+    size_t total = size * nmemb;
+
+    if (resp->size + total >= TAM_BUFFER_RESPUESTA - 1)
+        total = TAM_BUFFER_RESPUESTA - 1 - resp->size;
+
+    memcpy(resp->buffer + resp->size, contenido, total);
+    resp->size += total;
+    resp->buffer[resp->size] = '\0';
+
+    return total;
+}
+
+int obtener_jugadores(const char* base_url, const char* password, t_lista * lista, int max_jugadores) {
+    char url[512];
+    snprintf(url, sizeof(url), "%s/%s", base_url, password);
+
+    CURL* curl = curl_easy_init();
+    if (!curl) {
+        fprintf(stderr, "No se pudo inicializar CURL.\n");
+        return 0;
+    }
+
+    ResponseData response = {.size = 0};
+    response.buffer[0] = '\0';
+
+    curl_easy_setopt(curl, CURLOPT_URL, url);
+    curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, escribir_callback);
+    curl_easy_setopt(curl, CURLOPT_WRITEDATA, &response);
+    curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0L);
+    curl_easy_setopt(curl, CURLOPT_SSL_VERIFYHOST, 0L);
+
+    CURLcode res = curl_easy_perform(curl);
+    curl_easy_cleanup(curl);
+
+    if (res != CURLE_OK) {
+        fprintf(stderr, "Error al hacer GET: %s\n", curl_easy_strerror(res));
+        return 0;
+    }
+
+    cJSON* root = cJSON_Parse(response.buffer);
+    if (!root) {
+        fprintf(stderr, "Error al parsear JSON.\n");
+        return 0;
+    }
+
+    int count = 0;
+    int total = cJSON_GetArraySize(root);
+
+    for (int i = 0; i < total && count < max_jugadores; i++) {
+        cJSON* item = cJSON_GetArrayItem(root, i);
+        cJSON* nombre = cJSON_GetObjectItem(item, "nombreJugador");
+        cJSON* puntaje = cJSON_GetObjectItem(item, "puntaje");
+
+        if (nombre && puntaje && cJSON_IsString(nombre) && cJSON_IsNumber(puntaje)) {
+            strncpy(Jugador.nombre, nombre->valuestring, sizeof(jugador.nombre);
+            Jugador.nombre[sizeof(vector[count].nombre) - 1] = '\0';
+            Jugador.puntaje = puntaje->valueint;
+                int cmpJugadores(const void* a, const void* b)
+                {
+                    const Jugador* jugadorA = (const Jugador)a;
+                    const Jugador jugadorB = (const Jugador*)b;
+
+                    if (jugadorA->puntaje > jugadorB->puntaje)
+                        return 1;
+                    else if (jugadorA->puntaje < jugadorB->puntaje)
+                        return -1;
+                    else
+                        return 0;
+                    }
+            poner_ordenado_lista(lista,&Jugador,sizeof(Jugador),&cmpJugadores);
+            count++;
+        }
+
+    }
+
+    cJSON_Delete(root);
+    return count;
+}
+
 
 void enviar_jugadores_con_curl(const char* url, const char* codigoGrupo, Jugador* jugadores, int cantidad) {
     // Armar el JSON manualmente
