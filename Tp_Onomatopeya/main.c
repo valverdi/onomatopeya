@@ -304,10 +304,11 @@ void empezar_partida(SDL_Renderer* renderer, TTF_Font* font, int cantidadJugador
         {
             jugarPartida(renderer, font, &JugadorActual);
         }
+        enviar_jugadores_con_curl("https://algoritmos-api.azurewebsites.net/api/TaCTi", "buffer", &JugadorActual, 1);
         cantidadJugadores--;
     }
 
-    enviar_jugadores_con_curl("https://algoritmos-api.azurewebsites.net/api/TaCTi", "buffer", &JugadorActual, 1);
+
 
     ///enviar puntaje a api
 /*
