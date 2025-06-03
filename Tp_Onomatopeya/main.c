@@ -57,6 +57,7 @@ int main() {
     char key[7];
 
     leerArchivo(Url, key, &cantPartidas);
+    crear_lista(&p);
 
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
         printf("Error inicializando SDL: %s\n", SDL_GetError());
@@ -193,11 +194,14 @@ void salir(t_lista* p) {
     if(!lista_vacia(p))
         vaciar_lista(p);
 
-    printf("Saliendo\n");
+    printf("Saliendo...\n");
 
 }
 
 void mostrarRanking(t_lista* pl, SDL_Renderer* renderer, TTF_Font* font) {
+
+    printf("Mostrando Ranking...\n");
+
     SDL_Color colorTexto = {255, 255, 255, 255};
     int x = 250;
     int y = 50;
@@ -207,7 +211,6 @@ void mostrarRanking(t_lista* pl, SDL_Renderer* renderer, TTF_Font* font) {
     SDL_RenderFillRect(renderer, &areaDerecha);
 
     obtener_jugadores("https://algoritmos-api.azurewebsites.net/api/TaCTi", "buffer", pl, 100);
-    ///cargarJugadoresPrueba(pl); //////////////////////////////////////////Aca se cargan los jugadores en la lista desde la api
 
     if (lista_vacia(pl)) {
         SDL_Surface* surface = TTF_RenderText_Solid(font, "No hay jugadores en el ranking.", colorTexto);
@@ -773,7 +776,7 @@ void pedirNombres(SDL_Renderer* renderer, TTF_Font* font, int cantidadJugadores,
         strncpy(ingreso.nombre, entrada, sizeof(ingreso.nombre) - 1);
         ingreso.puntaje = 0;
 
-        poner_al_final_lista(p, &ingreso, sizeof(Jugador));
+        poner_al_comienzo_lista(p, &ingreso, sizeof(Jugador));
 
     }
 }
