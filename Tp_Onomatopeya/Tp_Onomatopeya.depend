@@ -2275,21 +2275,21 @@
 	"begin_code.h"
 	"close_code.h"
 
-1748905987 source:c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\lista-enlazada.c
+1748637279 source:c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\lista-enlazada.c
 	"lista-enlazada.h"
 
-1748901480 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\lista-enlazada.h
+1745681110 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\lista-enlazada.h
 	"macros.h"
 
-1748905987 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\macros.h
+1748905333 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\macros.h
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 
-1748901480 source:c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\macros.c
+1745635328 source:c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\macros.c
 	"macros.h"
 
-1748905987 source:c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\main.c
+1748908328 source:c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\main.c
 	<SDL2/SDL.h>
 	<SDL2/SDL_ttf.h>
 	<stdio.h>
@@ -2298,7 +2298,7 @@
 	"api.h"
 	"lista-enlazada.h"
 
-1748901479 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl.h
+1732392899 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl.h
 	"SDL_main.h"
 	"SDL_stdinc.h"
 	"SDL_assert.h"
@@ -2336,12 +2336,12 @@
 	"begin_code.h"
 	"close_code.h"
 
-1748901479 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_main.h
+1732392901 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_main.h
 	"SDL_stdinc.h"
 	"begin_code.h"
 	"close_code.h"
 
-1748901479 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_stdinc.h
+1732392902 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_stdinc.h
 	"SDL_config.h"
 	<sys/types.h>
 	<stdio.h>
@@ -2373,12 +2373,12 @@
 	<stdio.h>
 	"close_code.h"
 
-1748905985 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_config.h
+1732392900 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_config.h
 	"SDL_platform.h"
 	<winsdkver.h>
 	<sdkddkver.h>
 
-1748901479 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_platform.h
+1732392901 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_platform.h
 	<AvailabilityMacros.h>
 	<TargetConditionals.h>
 	<TargetConditionals.h>
@@ -2386,17 +2386,17 @@
 	"begin_code.h"
 	"close_code.h"
 
-1748901479 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\begin_code.h
+1732392899 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\begin_code.h
 
-1748901479 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\close_code.h
+1732392899 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\close_code.h
 
-1748901479 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_assert.h
+1732392899 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_assert.h
 	"SDL_stdinc.h"
 	"begin_code.h"
 	<signal.h>
 	"close_code.h"
 
-1748901479 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_atomic.h
+1732392899 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_atomic.h
 	"SDL_stdinc.h"
 	"SDL_platform.h"
 	"begin_code.h"
@@ -2404,7 +2404,7 @@
 	<mbarrier.h>
 	"close_code.h"
 
-1748901479 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_audio.h
+1732392900 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_audio.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_endian.h"
@@ -2414,12 +2414,12 @@
 	"begin_code.h"
 	"close_code.h"
 
-1748901479 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_error.h
+1732392900 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_error.h
 	"SDL_stdinc.h"
 	"begin_code.h"
 	"close_code.h"
 
-1748901479 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_endian.h
+1732392900 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_endian.h
 	"SDL_stdinc.h"
 	<intrin.h>
 	<endian.h>
@@ -2428,13 +2428,13 @@
 	"begin_code.h"
 	"close_code.h"
 
-1748901479 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_mutex.h
+1732392901 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_mutex.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"begin_code.h"
 	"close_code.h"
 
-1748902650 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_thread.h
+1732392904 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_thread.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_atomic.h"
@@ -2445,18 +2445,18 @@
 	"begin_code.h"
 	"close_code.h"
 
-1748901479 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_rwops.h
+1732392902 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_rwops.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"begin_code.h"
 	"close_code.h"
 
-1748901479 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_clipboard.h
+1732392900 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_clipboard.h
 	"SDL_stdinc.h"
 	"begin_code.h"
 	"close_code.h"
 
-1748902647 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_cpuinfo.h
+1732392900 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_cpuinfo.h
 	"SDL_stdinc.h"
 	<intrin.h>
 	<intrin.h>
@@ -2478,7 +2478,7 @@
 	"begin_code.h"
 	"close_code.h"
 
-1748901479 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_events.h
+1732392900 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_events.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_video.h"
@@ -2492,7 +2492,7 @@
 	"begin_code.h"
 	"close_code.h"
 
-1748901479 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_video.h
+1732392904 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_video.h
 	"SDL_stdinc.h"
 	"SDL_pixels.h"
 	"SDL_rect.h"
@@ -2500,13 +2500,13 @@
 	"begin_code.h"
 	"close_code.h"
 
-1748901479 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_pixels.h
+1732392901 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_pixels.h
 	"SDL_stdinc.h"
 	"SDL_endian.h"
 	"begin_code.h"
 	"close_code.h"
 
-1748901479 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_rect.h
+1732392902 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_rect.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_pixels.h"
@@ -2514,7 +2514,7 @@
 	"begin_code.h"
 	"close_code.h"
 
-1748901479 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_surface.h
+1732392902 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_surface.h
 	"SDL_stdinc.h"
 	"SDL_pixels.h"
 	"SDL_rect.h"
@@ -2523,11 +2523,11 @@
 	"begin_code.h"
 	"close_code.h"
 
-1748901479 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_blendmode.h
+1732392900 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_blendmode.h
 	"begin_code.h"
 	"close_code.h"
 
-1748901479 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_keyboard.h
+1732392900 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_keyboard.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_keycode.h"
@@ -2535,21 +2535,21 @@
 	"begin_code.h"
 	"close_code.h"
 
-1748901479 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_keycode.h
+1732392900 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_keycode.h
 	"SDL_stdinc.h"
 	"SDL_scancode.h"
 
-1748901479 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_scancode.h
+1732392902 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_scancode.h
 	"SDL_stdinc.h"
 
-1748901479 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_mouse.h
+1732392901 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_mouse.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_video.h"
 	"begin_code.h"
 	"close_code.h"
 
-1748901479 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_joystick.h
+1732392900 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_joystick.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_guid.h"
@@ -2557,13 +2557,13 @@
 	"begin_code.h"
 	"close_code.h"
 
-1748901479 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_guid.h
+1732392900 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_guid.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"begin_code.h"
 	"close_code.h"
 
-1748901479 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_gamecontroller.h
+1732392900 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_gamecontroller.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_rwops.h"
@@ -2572,17 +2572,17 @@
 	"begin_code.h"
 	"close_code.h"
 
-1748901479 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_sensor.h
+1732392902 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_sensor.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"begin_code.h"
 	"close_code.h"
 
-1748901479 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_quit.h
+1732392902 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_quit.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 
-1748901479 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_gesture.h
+1732392900 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_gesture.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_video.h"
@@ -2590,70 +2590,70 @@
 	"begin_code.h"
 	"close_code.h"
 
-1748901479 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_touch.h
+1732392904 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_touch.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_video.h"
 	"begin_code.h"
 	"close_code.h"
 
-1748901479 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_filesystem.h
+1732392900 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_filesystem.h
 	"SDL_stdinc.h"
 	"begin_code.h"
 	"close_code.h"
 
-1748901479 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_haptic.h
+1732392900 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_haptic.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_joystick.h"
 	"begin_code.h"
 	"close_code.h"
 
-1748901479 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_hidapi.h
+1732392900 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_hidapi.h
 	"SDL_stdinc.h"
 	"begin_code.h"
 	"close_code.h"
 
-1748901479 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_hints.h
+1732392900 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_hints.h
 	"SDL_stdinc.h"
 	"begin_code.h"
 	"close_code.h"
 
-1748901479 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_loadso.h
+1732392900 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_loadso.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"begin_code.h"
 	"close_code.h"
 
-1748901479 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_log.h
+1732392900 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_log.h
 	"SDL_stdinc.h"
 	"begin_code.h"
 	"close_code.h"
 
-1748901479 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_messagebox.h
+1732392901 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_messagebox.h
 	"SDL_stdinc.h"
 	"SDL_video.h"
 	"begin_code.h"
 	"close_code.h"
 
-1748901479 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_metal.h
+1732392901 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_metal.h
 	"SDL_video.h"
 	"begin_code.h"
 	"close_code.h"
 
-1748901479 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_power.h
+1732392902 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_power.h
 	"SDL_stdinc.h"
 	"begin_code.h"
 	"close_code.h"
 
-1748901479 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_render.h
+1732392902 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_render.h
 	"SDL_stdinc.h"
 	"SDL_rect.h"
 	"SDL_video.h"
 	"begin_code.h"
 	"close_code.h"
 
-1748901479 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_shape.h
+1732392902 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_shape.h
 	"SDL_stdinc.h"
 	"SDL_pixels.h"
 	"SDL_rect.h"
@@ -2662,7 +2662,7 @@
 	"begin_code.h"
 	"close_code.h"
 
-1748901479 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_system.h
+1732392902 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_system.h
 	"SDL_stdinc.h"
 	"SDL_keyboard.h"
 	"SDL_render.h"
@@ -2670,44 +2670,46 @@
 	"begin_code.h"
 	"close_code.h"
 
-1748901479 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_timer.h
+1732392904 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_timer.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"begin_code.h"
 	"close_code.h"
 
-1748901479 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_version.h
+1732392904 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_version.h
 	"SDL_stdinc.h"
 	"begin_code.h"
 	"close_code.h"
 
-1748901479 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_locale.h
+1732392900 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_locale.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"begin_code.h"
 	"close_code.h"
 
-1748901479 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_misc.h
+1732392901 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_misc.h
 	"SDL_stdinc.h"
 	"begin_code.h"
 	"close_code.h"
 
-1748901479 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_ttf.h
+1641928995 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl_ttf.h
 	"SDL.h"
 	"begin_code.h"
 	"close_code.h"
 
-1748905987 source:c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\api.c
+1748908552 source:c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\api.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	<curl/curl.h>
 	"api.h"
 
-1748905987 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\api.h
+1748908164 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\api.h
 	"macros.h"
+	"lista-enlazada.h"
+	"cJson.h"
 
-1746823209 source:c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\cjson.c
+1748904958 source:c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\cjson.c
 	<string.h>
 	<stdio.h>
 	<math.h>
@@ -2718,6 +2720,6 @@
 	<locale.h>
 	"cJSON.h"
 
-1746823300 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\cjson.h
+1748904958 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\cjson.h
 	<stddef.h>
 

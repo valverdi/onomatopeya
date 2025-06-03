@@ -26,9 +26,19 @@ size_t escribir_callback(void* contenido, size_t size, size_t nmemb, void* userp
     return total;
 }
 
+int cmpJugadores(const void* a, const void* b)
+{
+    const Jugador* jugadorA = (const Jugador*)a;
+    const Jugador* jugadorB = (const Jugador*)b;
+
+    return (jugadorB->puntaje - jugadorA->puntaje);
+}
+
 int obtener_jugadores(const char* base_url, const char* password, t_lista * lista, int max_jugadores) {
     char url[512];
     snprintf(url, sizeof(url), "%s/%s", base_url, password);
+
+    Jugador Jugador;
 
     CURL* curl = curl_easy_init();
     if (!curl) {
@@ -54,8 +64,9 @@ int obtener_jugadores(const char* base_url, const char* password, t_lista * list
     }
 
     cJSON* root = cJSON_Parse(response.buffer);
-    if (!root) {
-        fprintf(stderr, "Error al parsear JSON.\n");
+    if (!root || !cJSON_IsArray(root)) {
+        fprintf(stderr, "Error al parsear JSON o el JSON no es un arreglo.\n");
+        if (root) cJSON_Delete(root);
         return 0;
     }
 
@@ -68,25 +79,13 @@ int obtener_jugadores(const char* base_url, const char* password, t_lista * list
         cJSON* puntaje = cJSON_GetObjectItem(item, "puntaje");
 
         if (nombre && puntaje && cJSON_IsString(nombre) && cJSON_IsNumber(puntaje)) {
-            strncpy(Jugador.nombre, nombre->valuestring, sizeof(jugador.nombre);
-            Jugador.nombre[sizeof(vector[count].nombre) - 1] = '\0';
+            strncpy(Jugador.nombre, nombre->valuestring, sizeof(Jugador.nombre) - 1);
+            Jugador.nombre[sizeof(Jugador.nombre) - 1] = '\0';
             Jugador.puntaje = puntaje->valueint;
-                int cmpJugadores(const void* a, const void* b)
-                {
-                    const Jugador* jugadorA = (const Jugador)a;
-                    const Jugador jugadorB = (const Jugador*)b;
 
-                    if (jugadorA->puntaje > jugadorB->puntaje)
-                        return 1;
-                    else if (jugadorA->puntaje < jugadorB->puntaje)
-                        return -1;
-                    else
-                        return 0;
-                    }
-            poner_ordenado_lista(lista,&Jugador,sizeof(Jugador),&cmpJugadores);
+            poner_ordenado_lista(lista, &Jugador, sizeof(Jugador), &cmpJugadores);
             count++;
         }
-
     }
 
     cJSON_Delete(root);

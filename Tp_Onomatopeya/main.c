@@ -206,6 +206,7 @@ void mostrarRanking(t_lista* pl, SDL_Renderer* renderer, TTF_Font* font) {
     SDL_SetRenderDrawColor(renderer, 33, 33, 33, 255);
     SDL_RenderFillRect(renderer, &areaDerecha);
 
+    obtener_jugadores("https://algoritmos-api.azurewebsites.net/api/TaCTi", "buffer", pl, 100);
     ///cargarJugadoresPrueba(pl); //////////////////////////////////////////Aca se cargan los jugadores en la lista desde la api
 
     if (lista_vacia(pl)) {
@@ -257,7 +258,7 @@ void mostrarRanking(t_lista* pl, SDL_Renderer* renderer, TTF_Font* font) {
 
     SDL_RenderPresent(renderer);
 
-    ///vaciar_lista(pl); //////////////////////////////////////////Funcion de prueba
+    vaciar_lista(pl);
 }
 
 void jugar(SDL_Renderer* renderer, TTF_Font* font, t_lista* p, int cantPartidas) {
@@ -307,27 +308,6 @@ void empezar_partida(SDL_Renderer* renderer, TTF_Font* font, int cantidadJugador
         enviar_jugadores_con_curl("https://algoritmos-api.azurewebsites.net/api/TaCTi", "buffer", &JugadorActual, 1);
         cantidadJugadores--;
     }
-
-
-
-    ///enviar puntaje a api
-/*
-    //guardar en la lista
-    int cmpJugadores(const void* a, const void* b)
-    {
-            const Jugador* jugadorA = (const Jugador*)a;
-            const Jugador* jugadorB = (const Jugador*)b;
-
-            if (jugadorA->puntaje > jugadorB->puntaje)
-                return 1;
-            else if (jugadorA->puntaje < jugadorB->puntaje)
-                return -1;
-            else
-                return 0;
-    }
-
-    poner_ordenado_lista(p, &JugadorActual, sizeof(Jugador), &cmpJugadores);
-*/
     vaciar_lista(p);
 
     Sleep(1000);
@@ -645,7 +625,7 @@ void imprimirJugador(const void* dato) {
 
 void renderizarJugador(SDL_Renderer* renderer, TTF_Font* font, const Jugador* jugador, SDL_Color color, int x, int y) {
     char texto[100];
-    snprintf(texto, sizeof(texto), "%s | Puntaje: %d", jugador->nombre, jugador->puntaje);
+    snprintf(texto, sizeof(texto), "%s |:)| Puntaje: %d", jugador->nombre, jugador->puntaje);
 
     SDL_Surface* surface = TTF_RenderText_Solid(font, texto, color);
     SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
