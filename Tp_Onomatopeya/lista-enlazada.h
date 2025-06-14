@@ -17,6 +17,7 @@ int poner_ordenado_lista(t_lista* pl, const void* dato, size_t tamElem, int(*cmp
 
 int sacar_primero_lista(t_lista* pl, void* dato, size_t tamElem);
 int sacar_ultimo_lista(t_lista* pl, void* dato, size_t tamElem);
+int contar_elementos_lista(t_lista* pl);
 int sacar_de_pos_lista(t_lista* pl, void* dato, size_t tamElem, unsigned int pos);
 
 

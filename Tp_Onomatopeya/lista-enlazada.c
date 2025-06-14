@@ -142,7 +142,7 @@ int sacar_primero_lista(t_lista* pl, void* dato, size_t tamElem)
 
     *pl = nodoAelim->nodoSig;
 
-    memcpy(dato, nodoAelim->elem, MENOR(tamElem,nodoAelim->tamElem));
+    memcpy(dato, nodoAelim->elem,tamElem);
 
     free(nodoAelim->elem);
     free(nodoAelim);
@@ -150,22 +150,33 @@ int sacar_primero_lista(t_lista* pl, void* dato, size_t tamElem)
     return 0;
 }
 
+int contar_elementos_lista(t_lista* pl) {
+    int cont = 0;
+    Nodo* aux = *pl;
+    while (aux) {
+        cont++;
+        aux = aux->nodoSig;
+    }
+    return cont;
+}
+
 int sacar_de_pos_lista(t_lista* pl, void* dato, size_t tamElem, unsigned int pos)
 {
     Nodo* nodoAelim;
 
-    while(*pl && --pos)
+    while(*pl && pos > 0)
     {
         pl =&(*pl)->nodoSig;
+        pos--;
     }
 
 
-    if(*pl==NULL)
+    if(!*pl)
         return -1;
 
 
     nodoAelim = *pl;
-    memcpy(dato, nodoAelim->elem, MENOR(tamElem, nodoAelim->tamElem));
+    memcpy(dato, nodoAelim->elem,MENOR(tamElem,nodoAelim->tamElem));
 
 
     *pl = nodoAelim->nodoSig;
@@ -173,9 +184,7 @@ int sacar_de_pos_lista(t_lista* pl, void* dato, size_t tamElem, unsigned int pos
     free(nodoAelim->elem);
     free(nodoAelim);
 
-
     return OK;
-
 }
 
 int sacar_ultimo_lista(t_lista* pl, void* dato, size_t tamElem)
@@ -295,7 +304,6 @@ Nodo* buscarXclave(t_lista* pl, void* clave, size_t tamClave, int(*cmp)(const vo
 {
     Nodo* nodoClave = NULL;
 
-
     while(*pl)
     {
         if(cmp(clave, (*pl)->elem)==0)
@@ -316,5 +324,3 @@ void map_lista(const t_lista* pl, void(*accion)(void*, void*), void* extra)
         pl=&(*pl)->nodoSig;
     }
 }
-
-

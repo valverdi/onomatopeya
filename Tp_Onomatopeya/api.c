@@ -38,7 +38,7 @@ int obtener_jugadores(const char* base_url, const char* password, t_lista * list
     char url[512];
     snprintf(url, sizeof(url), "%s/%s", base_url, password);
 
-    Jugador Jugador;
+    Jugador jugador;
 
     CURL* curl = curl_easy_init();
     if (!curl) {
@@ -79,11 +79,11 @@ int obtener_jugadores(const char* base_url, const char* password, t_lista * list
         cJSON* puntaje = cJSON_GetObjectItem(item, "puntaje");
 
         if (nombre && puntaje && cJSON_IsString(nombre) && cJSON_IsNumber(puntaje)) {
-            strncpy(Jugador.nombre, nombre->valuestring, sizeof(Jugador.nombre) - 1);
-            Jugador.nombre[sizeof(Jugador.nombre) - 1] = '\0';
-            Jugador.puntaje = puntaje->valueint;
+            strncpy(jugador.nombre, nombre->valuestring, sizeof(jugador.nombre) - 1);
+            jugador.nombre[sizeof(jugador.nombre) - 1] = '\0';
+            jugador.puntaje = puntaje->valueint;
 
-            poner_ordenado_lista(lista, &Jugador, sizeof(Jugador), &cmpJugadores);
+            poner_ordenado_lista(lista, &jugador, sizeof(Jugador), &cmpJugadores);
             count++;
         }
     }
@@ -140,7 +140,7 @@ void enviar_jugadores_con_curl(const char* url, const char* codigoGrupo, Jugador
     curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0L);
     curl_easy_setopt(curl, CURLOPT_SSL_VERIFYHOST, 0L);
 
-    // Hacer la petición
+    // Hacer la peticiÃ³n
     res = curl_easy_perform(curl);
     if (res != CURLE_OK) {
         fprintf(stderr, "Error al hacer POST: %s\n", curl_easy_strerror(res));
@@ -149,7 +149,4 @@ void enviar_jugadores_con_curl(const char* url, const char* codigoGrupo, Jugador
     // Limpiar
     curl_slist_free_all(headers);
     curl_easy_cleanup(curl);
-}
-
-
-
+} 
