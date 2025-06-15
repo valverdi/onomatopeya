@@ -2275,10 +2275,10 @@
 	"begin_code.h"
 	"close_code.h"
 
-1748983869 source:c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\lista-enlazada.c
+1749941438 source:c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\lista-enlazada.c
 	"lista-enlazada.h"
 
-1748983869 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\lista-enlazada.h
+1749941438 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\lista-enlazada.h
 	"macros.h"
 
 1748905333 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\macros.h
@@ -2289,12 +2289,13 @@
 1745635328 source:c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\macros.c
 	"macros.h"
 
-1748909395 source:c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\main.c
+1750028954 source:c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\main.c
 	<SDL2/SDL.h>
 	<SDL2/SDL_ttf.h>
 	<stdio.h>
 	<time.h>
 	<windows.h>
+	<unistd.h>
 	"api.h"
 	"lista-enlazada.h"
 
@@ -2697,7 +2698,7 @@
 	"begin_code.h"
 	"close_code.h"
 
-1748909395 source:c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\api.c
+1749941438 source:c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\api.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -2709,7 +2710,7 @@
 	"lista-enlazada.h"
 	"cJson.h"
 
-1748904958 source:c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\cjson.c
+1749941438 source:c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\cjson.c
 	<string.h>
 	<stdio.h>
 	<math.h>
@@ -2718,7 +2719,7 @@
 	<ctype.h>
 	<float.h>
 	<locale.h>
-	"cJSON.h"
+	"cJson.h"
 
 1748904958 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\cjson.h
 	<stddef.h>

@@ -5,7 +5,7 @@
 #include <time.h>
 #ifdef WIN_32
     #include <windows.h>
-#else 
+#else
     #include <unistd.h>
 #endif
 #include "api.h"
@@ -177,7 +177,7 @@ void renderizarTexto(SDL_Renderer* renderer, const char* texto, TTF_Font* font, 
     printf("Error: el texto es NULL.\n");
     return;
     }
-    
+
     SDL_Surface* surface = TTF_RenderText_Solid(font, texto, color);
     if (!surface) {
         printf("Error al crear la superficie del texto: %s\n", TTF_GetError());
@@ -202,7 +202,6 @@ void renderizarTexto(SDL_Renderer* renderer, const char* texto, TTF_Font* font, 
     SDL_FreeSurface(surface);
 }
 
-
 void salir(t_lista* jugadoresLocales,t_lista* jugadoresAPI) {
     if(!lista_vacia(jugadoresLocales))
         vaciar_lista(jugadoresLocales);
@@ -211,7 +210,6 @@ void salir(t_lista* jugadoresLocales,t_lista* jugadoresAPI) {
 
     printf("Saliendo...\n");
 }
-
 
 void renderizarJugadorEnRanking(void* elem, void* extra) {
     // Extra contiene: renderer, font, puntero a y
@@ -229,7 +227,6 @@ void renderizarJugadorEnRanking(void* elem, void* extra) {
     *y += 40;  // Incrementar la posición vertical
 }
 
-
 void mostrarRanking(t_lista* jugadoresAPI, SDL_Renderer* renderer, TTF_Font* font) {
     printf("Mostrando Ranking...\n");
 
@@ -242,7 +239,7 @@ void mostrarRanking(t_lista* jugadoresAPI, SDL_Renderer* renderer, TTF_Font* fon
     SDL_RenderFillRect(renderer, &areaDerecha);
 
     // Limpiar y volver a llenar la lista desde la API
-    vaciar_lista(jugadoresAPI);  
+    vaciar_lista(jugadoresAPI);
 
     obtener_jugadores("https://algoritmos-api.azurewebsites.net/api/TaCTi", "buffer", jugadoresAPI, 100);
 
@@ -277,8 +274,6 @@ void mostrarRanking(t_lista* jugadoresAPI, SDL_Renderer* renderer, TTF_Font* fon
     SDL_RenderPresent(renderer);
 }
 
-
-
 void jugar(SDL_Renderer* renderer, TTF_Font* font, t_lista* jugadoresLocales, int cantPartidas) {
     int cantidadJugadores = 0;
 
@@ -300,7 +295,6 @@ void jugar(SDL_Renderer* renderer, TTF_Font* font, t_lista* jugadoresLocales, in
     empezar_partida(renderer, font, cantidadJugadores, jugadoresLocales, cantPartidas);
     SDL_StopTextInput();
 }
-
 
 void empezar_partida(SDL_Renderer* renderer, TTF_Font* font, int cantidadJugadores, t_lista* p, int cantPartidas){
 
@@ -358,13 +352,29 @@ void empezar_partida(SDL_Renderer* renderer, TTF_Font* font, int cantidadJugador
     SDL_RenderPresent(renderer);
 }
 
-
 void jugarPartida(SDL_Renderer* renderer, TTF_Font* font, Jugador* jugador){
     Tablero tablero;
     inicializarTablero(&tablero);
 
+    char fichaJugador;
+    char fichaMaquina;
+
     int turnoJugador = 1; // Empieza el jugador
     int jugando = 1;
+
+    srand((unsigned int)time(NULL));
+    turnoJugador = rand() % 2;
+
+    if(turnoJugador == 1)
+    {
+        fichaJugador = 'X';
+        fichaMaquina = 'O';
+    }
+    else
+    {
+        fichaJugador = 'O';
+        fichaMaquina = 'X';
+    }
 
     SDL_Color colorTexto = {255, 255, 255, 255};
     SDL_Rect areaDerecha = {250, 0, VENTANA_ANCHO - 250, VENTANA_ALTO};
@@ -394,9 +404,9 @@ void jugarPartida(SDL_Renderer* renderer, TTF_Font* font, Jugador* jugador){
             int x = e.button.x;
             int y = e.button.y;
 
-            if (clickEnTablero(&tablero, x, y, 'X')) // jugador juega con 'X'
+            if (clickEnTablero(&tablero, x, y, fichaJugador)) // jugador juega con 'X'
             {
-                if (hayGanador(&tablero) == 'X') {
+                if (hayGanador(&tablero) == fichaJugador) {
                     jugador->puntaje += 3; // GANÓ, sumar puntaje
                     jugando = 0;
                 }
@@ -412,9 +422,9 @@ void jugarPartida(SDL_Renderer* renderer, TTF_Font* font, Jugador* jugador){
         else if (!turnoJugador)
         {
             // Turno de la máquina
-            maquinaJuega(&tablero, 'O');
+            maquinaJuega(&tablero, fichaMaquina);
 
-            if (hayGanador(&tablero) == 'O') {
+            if (hayGanador(&tablero) == fichaMaquina) {
                 jugador->puntaje -= 1;
                 jugando = 0; //PERDIÓ
             }
@@ -633,7 +643,6 @@ void imprimirJugador(const void* dato) {
     const Jugador* jugador = (const Jugador*)dato;
     printf("- %s (Puntaje: %d)\n", jugador->nombre, jugador->puntaje);
 }
-
 
 void renderizarJugador(SDL_Renderer* renderer, TTF_Font* font, const Jugador* jugador, SDL_Color color, int x, int y) {
     char texto[100];
