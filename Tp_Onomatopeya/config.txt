@@ -1,2 +1,2 @@
-https://algoritmos-api.azurewebsites.net/api/TaCTi | Buffer
+https://algoritmos-api.azurewebsites.net/api/TaCTi|Buffer
 2

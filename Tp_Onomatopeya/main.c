@@ -24,12 +24,18 @@ typedef struct {
     char matriz[3][3];
 } Tablero;
 
+typedef struct {
+    Tablero tablero;
+    Jugador jugador;
+    int puntaje;
+} Resultado;
+
 void leerArchivo(char* url, char* key, int* cantPartidas);
 
 void cargarJugadoresPrueba(t_lista* pl);
 
-void jugar(SDL_Renderer* renderer, TTF_Font* font, t_lista* jugadoresLocales, int cantPartidas) ;
-void mostrarRanking(t_lista* jugadoresAPI, SDL_Renderer* renderer, TTF_Font* font) ;
+void jugar(SDL_Renderer* renderer, TTF_Font* font, t_lista* jugadoresLocales, int cantPartidas, char* Url, char* Token) ;
+void mostrarRanking(t_lista* jugadoresAPI, SDL_Renderer* renderer, TTF_Font* font, char* Url, char* Token) ;
 void salir(t_lista* jugadoresLocales,t_lista* jugadpresAPI);
 
 void imprimirJugador(const void* dato);
@@ -38,7 +44,7 @@ void renderizarJugador(SDL_Renderer* renderer, TTF_Font* font, const Jugador* ju
 
 void pedirCantidadJugadores(SDL_Renderer* renderer, TTF_Font* font, int* cantidadJugadores);
 void pedirNombres(SDL_Renderer* renderer, TTF_Font* font, int cantidadJugadores, t_lista* p);
-void empezar_partida(SDL_Renderer* renderer, TTF_Font* font, int cantidadJugadores, t_lista* p, int cantPartidas);
+void empezar_partida(SDL_Renderer* renderer, TTF_Font* font, int cantidadJugadores, t_lista* p, int cantPartidas, char* Url, char* Token);
 void jugarPartida(SDL_Renderer* renderer, TTF_Font* font, Jugador* jugadorActual);
 
 void inicializarTablero(Tablero* t);
@@ -126,11 +132,11 @@ int main() {
 
                 if (dentroDeBoton(x, y, botonJugar)) {
                     SDL_RenderPresent(renderer);
-                    jugar(renderer, font, &jugadoresLocales, cantPartidas);
+                    jugar(renderer, font, &jugadoresLocales, cantPartidas, Url, key);
                     estadoActual = 1;
                 } else if (dentroDeBoton(x, y, botonRanking)) {
                     SDL_RenderPresent(renderer);
-                    mostrarRanking(&jugadoresAPI, renderer, font);
+                    mostrarRanking(&jugadoresAPI, renderer, font, Url, key);
                     estadoActual = 2;
                 } else if (dentroDeBoton(x, y, botonSalir)) {
                     SDL_RenderPresent(renderer);
@@ -227,7 +233,7 @@ void renderizarJugadorEnRanking(void* elem, void* extra) {
     *y += 40;  // Incrementar la posición vertical
 }
 
-void mostrarRanking(t_lista* jugadoresAPI, SDL_Renderer* renderer, TTF_Font* font) {
+void mostrarRanking(t_lista* jugadoresAPI, SDL_Renderer* renderer, TTF_Font* font, char* Url, char* Token) {
     printf("Mostrando Ranking...\n");
 
     SDL_Color colorTexto = {255, 255, 255, 255};
@@ -241,7 +247,7 @@ void mostrarRanking(t_lista* jugadoresAPI, SDL_Renderer* renderer, TTF_Font* fon
     // Limpiar y volver a llenar la lista desde la API
     vaciar_lista(jugadoresAPI);
 
-    obtener_jugadores("https://algoritmos-api.azurewebsites.net/api/TaCTi", "buffer", jugadoresAPI, 100);
+    obtener_jugadores(Url, Token, jugadoresAPI, 100);
 
     if (lista_vacia(jugadoresAPI)) {
         SDL_Surface* surface = TTF_RenderText_Solid(font, "No hay jugadores en el ranking.", colorTexto);
@@ -274,7 +280,7 @@ void mostrarRanking(t_lista* jugadoresAPI, SDL_Renderer* renderer, TTF_Font* fon
     SDL_RenderPresent(renderer);
 }
 
-void jugar(SDL_Renderer* renderer, TTF_Font* font, t_lista* jugadoresLocales, int cantPartidas) {
+void jugar(SDL_Renderer* renderer, TTF_Font* font, t_lista* jugadoresLocales, int cantPartidas, char* Url, char* Token) {
     int cantidadJugadores = 0;
 
     SDL_StartTextInput();
@@ -292,11 +298,11 @@ void jugar(SDL_Renderer* renderer, TTF_Font* font, t_lista* jugadoresLocales, in
     SDL_StopTextInput();
 
     SDL_StartTextInput();
-    empezar_partida(renderer, font, cantidadJugadores, jugadoresLocales, cantPartidas);
+    empezar_partida(renderer, font, cantidadJugadores, jugadoresLocales, cantPartidas, Url, Token);
     SDL_StopTextInput();
 }
 
-void empezar_partida(SDL_Renderer* renderer, TTF_Font* font, int cantidadJugadores, t_lista* p, int cantPartidas){
+void empezar_partida(SDL_Renderer* renderer, TTF_Font* font, int cantidadJugadores, t_lista* p, int cantPartidas, char* Url, char* Token){
 
     SDL_Color colorTexto = {255, 255, 255, 255};
 
@@ -335,7 +341,7 @@ void empezar_partida(SDL_Renderer* renderer, TTF_Font* font, int cantidadJugador
         {
             jugarPartida(renderer, font, &JugadorActual);
         }
-        enviar_jugadores_con_curl("https://algoritmos-api.azurewebsites.net/api/TaCTi", "buffer", &JugadorActual, 1);
+        enviar_jugadores_con_curl(Url, Token, &JugadorActual, 1);
         elementosRestantes = contar_elementos_lista(p);
     }
     vaciar_lista(p);
