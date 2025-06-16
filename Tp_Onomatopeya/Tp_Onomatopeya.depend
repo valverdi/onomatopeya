@@ -2289,7 +2289,7 @@
 1745635328 source:c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\macros.c
 	"macros.h"
 
-1750084164 source:c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\main.c
+1750090171 source:c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\main.c
 	<SDL2/SDL.h>
 	<SDL2/SDL_ttf.h>
 	<stdio.h>

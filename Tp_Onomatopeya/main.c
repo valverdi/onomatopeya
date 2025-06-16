@@ -20,6 +20,10 @@
 #define BOTON_ALTO 50
 #define ESPACIADO 30
 
+#define GANA 3
+#define PIERDE 2
+#define EMPATA -1
+
 typedef struct {
     char matriz[3][3];
 } Tablero;
@@ -31,6 +35,10 @@ typedef struct {
 } Resultado;
 
 void leerArchivo(char* url, char* key, int* cantPartidas);
+
+void escribirTXTResultados(t_lista* lr, t_lista* p);
+const char* obtenerGanador(int puntaje);
+void generarNombreArchivo(char* nombreArchivo, size_t tam);
 
 void cargarJugadoresPrueba(t_lista* pl);
 
@@ -45,7 +53,7 @@ void renderizarJugador(SDL_Renderer* renderer, TTF_Font* font, const Jugador* ju
 void pedirCantidadJugadores(SDL_Renderer* renderer, TTF_Font* font, int* cantidadJugadores);
 void pedirNombres(SDL_Renderer* renderer, TTF_Font* font, int cantidadJugadores, t_lista* p);
 void empezar_partida(SDL_Renderer* renderer, TTF_Font* font, int cantidadJugadores, t_lista* p, int cantPartidas, char* Url, char* Token);
-void jugarPartida(SDL_Renderer* renderer, TTF_Font* font, Jugador* jugadorActual);
+void jugarPartida(SDL_Renderer* renderer, TTF_Font* font, Jugador* jugador, t_lista* lr);
 
 void inicializarTablero(Tablero* t);
 void dibujarTablero(SDL_Renderer* renderer, TTF_Font* font,     Tablero* t);
@@ -309,11 +317,14 @@ void empezar_partida(SDL_Renderer* renderer, TTF_Font* font, int cantidadJugador
     Jugador JugadorActual;
     memset(&JugadorActual,0,sizeof(JugadorActual));
 
+    t_lista listaResultados;
+    crear_lista(&listaResultados);
+
     int elementosRestantes = contar_elementos_lista(p);;
     int numeroAleatorio;
     srand((unsigned int)time(NULL));
 
-    while(!lista_vacia(p))
+    while(!lista_vacia(p) || elementosRestantes > 0)
     {
         //elegir random
         if(elementosRestantes <= 0) {
@@ -339,11 +350,16 @@ void empezar_partida(SDL_Renderer* renderer, TTF_Font* font, int cantidadJugador
         //jugar la partida
         for (int i = 0; i<cantPartidas; i++)
         {
-            jugarPartida(renderer, font, &JugadorActual);
+            jugarPartida(renderer, font, &JugadorActual, &listaResultados);
         }
         enviar_jugadores_con_curl(Url, Token, &JugadorActual, 1);
-        elementosRestantes = contar_elementos_lista(p);
+        poner_al_final_lista(p,&JugadorActual,sizeof(JugadorActual));
+        elementosRestantes --;
     }
+
+    escribirTXTResultados(&listaResultados, p);
+
+    vaciar_lista(&listaResultados);
     vaciar_lista(p);
 
     #ifdef WIN_32
@@ -358,7 +374,7 @@ void empezar_partida(SDL_Renderer* renderer, TTF_Font* font, int cantidadJugador
     SDL_RenderPresent(renderer);
 }
 
-void jugarPartida(SDL_Renderer* renderer, TTF_Font* font, Jugador* jugador){
+void jugarPartida(SDL_Renderer* renderer, TTF_Font* font, Jugador* jugador, t_lista* lr){
     Tablero tablero;
     inicializarTablero(&tablero);
 
@@ -367,6 +383,8 @@ void jugarPartida(SDL_Renderer* renderer, TTF_Font* font, Jugador* jugador){
 
     int turnoJugador = 1; // Empieza el jugador
     int jugando = 1;
+
+    Resultado resultado;
 
     srand((unsigned int)time(NULL));
     turnoJugador = rand() % 2;
@@ -405,7 +423,7 @@ void jugarPartida(SDL_Renderer* renderer, TTF_Font* font, Jugador* jugador){
             break;
         }
 
-        if (turnoJugador && e.type == SDL_MOUSEBUTTONDOWN && e.button.button == SDL_BUTTON_LEFT)
+        if (turnoJugador && e.type == SDL_MOUSEBUTTONDOWN && e.button.button == SDL_BUTTON_LEFT && jugando)
         {
             int x = e.button.x;
             int y = e.button.y;
@@ -413,30 +431,54 @@ void jugarPartida(SDL_Renderer* renderer, TTF_Font* font, Jugador* jugador){
             if (clickEnTablero(&tablero, x, y, fichaJugador)) // jugador juega con 'X'
             {
                 if (hayGanador(&tablero) == fichaJugador) {
-                    jugador->puntaje += 3; // GANÓ, sumar puntaje
+                    jugador->puntaje += GANA; // GANÓ, sumar puntaje
                     jugando = 0;
+
+                    resultado.tablero = tablero;
+                    resultado.jugador = *jugador;
+                    resultado.puntaje = GANA;
+
+                    poner_al_final_lista(lr, &resultado, sizeof(Resultado));
                 }
                 else if (tableroLleno(&tablero)) {
-                    jugador->puntaje += 2;
+                    jugador->puntaje += EMPATA;
                     jugando = 0; //EMPATE
+
+                    resultado.tablero = tablero;
+                    resultado.jugador = *jugador;
+                    resultado.puntaje = EMPATA;
+
+                    poner_al_final_lista(lr, &resultado, sizeof(Resultado));
                 }
                 else {
                     turnoJugador = 0; // Pasa turno a la máquina
                 }
             }
         }
-        else if (!turnoJugador)
+        else if (!turnoJugador && jugando)
         {
             // Turno de la máquina
             maquinaJuega(&tablero, fichaMaquina);
 
             if (hayGanador(&tablero) == fichaMaquina) {
-                jugador->puntaje -= 1;
+                jugador->puntaje += PIERDE;
                 jugando = 0; //PERDIÓ
+
+                resultado.tablero = tablero;
+                resultado.jugador = *jugador;
+                resultado.puntaje = PIERDE;
+
+                poner_al_final_lista(lr, &resultado, sizeof(Resultado));
             }
             if (tableroLleno(&tablero)) {
-                jugador->puntaje += 2; // EMPATE
+                jugador->puntaje += EMPATA; // EMPATE
                 jugando = 0;
+
+                resultado.tablero = tablero;
+                resultado.jugador = *jugador;
+                resultado.puntaje = EMPATA;
+
+                poner_al_final_lista(lr, &resultado, sizeof(Resultado));
             }
             turnoJugador = 1; // Vuelve a ser el turno del jugador
         }
@@ -851,4 +893,104 @@ void leerArchivo(char* url, char* key, int* cantPartidas){
     }
 
     fclose(archivo);
+}
+
+void escribirTXTResultados(t_lista* lr, t_lista* p){
+
+    Resultado resultado;
+    Jugador jugador;
+    int maxPuntaje = 0;
+    int bandMax = 0;
+    t_lista listaMaxPuntaje;
+    crear_lista(&listaMaxPuntaje);
+
+    char nombreArchivo[100];
+    generarNombreArchivo(nombreArchivo, sizeof(nombreArchivo));
+
+    FILE* archivo = fopen(nombreArchivo, "a");
+    if (!archivo) {
+        perror("No se pudo abrir el archivo");
+        return;
+    }
+
+    const char* ganador;
+
+    printf("Generando Log...\n");
+
+    while(!lista_vacia(lr))
+    {
+        sacar_primero_lista(lr, &resultado, sizeof(Resultado));
+
+        fprintf(archivo, "-----------------------------\n");
+        fprintf(archivo, "JUGADOR: %s\n", resultado.jugador.nombre);
+        fprintf(archivo, "-TABLERO:\n");
+
+        for (int i = 0; i < 3; i++) {
+            fprintf(archivo, "         "); // sangría para que quede alineado
+            for (int j = 0; j < 3; j++) {
+                fprintf(archivo, "%c ", resultado.tablero.matriz[i][j]);
+            }
+            fprintf(archivo, "\n");
+        }
+
+         ganador = obtenerGanador(resultado.puntaje);
+
+        fprintf(archivo, "-GANADOR : \"%s\"\n", ganador);
+        fprintf(archivo, "-PUNTAJE: %d\n", resultado.puntaje);
+        fprintf(archivo, "-PUNTAJE TOTAL DE JUGADOR: %d\n\n\n", resultado.jugador.puntaje);
+    }
+
+    fprintf(archivo, "-----------------------------\n");
+    fprintf(archivo, "-----------------------------\n");
+    fprintf(archivo, "\nPuntaje Final de la Tanda\n");
+    while(!lista_vacia(p))
+    {
+        sacar_primero_lista(p, &jugador, sizeof(Jugador));
+        fprintf(archivo, "- %s : %d\n", jugador.nombre, jugador.puntaje);
+
+        if(bandMax == 0)
+        {
+            bandMax = 1;
+            maxPuntaje = jugador.puntaje;
+            poner_al_comienzo_lista(&listaMaxPuntaje, &jugador, sizeof(Jugador));
+        }
+        else if(maxPuntaje == jugador.puntaje)
+        {
+            poner_al_comienzo_lista(&listaMaxPuntaje, &jugador, sizeof(Jugador));
+        }
+        else if(maxPuntaje < jugador.puntaje)
+        {
+            vaciar_lista(&listaMaxPuntaje);
+            maxPuntaje = jugador.puntaje;
+            poner_al_comienzo_lista(&listaMaxPuntaje, &jugador, sizeof(Jugador));
+        }
+    }
+
+    fprintf(archivo, "-----------------------------\n");
+    fprintf(archivo, "-----------------------------\n");
+    fprintf(archivo, "\nJugador/es con Mayor Puntaje\n");
+    while(!lista_vacia(&listaMaxPuntaje))
+    {
+        sacar_primero_lista(&listaMaxPuntaje, &jugador, sizeof(Jugador));
+        fprintf(archivo, "- %s : %d\n", jugador.nombre, jugador.puntaje);
+    }
+
+    vaciar_lista(&listaMaxPuntaje);
+    fclose(archivo);
+}
+
+const char* obtenerGanador(int puntaje) {
+    switch (puntaje) {
+        case 3: return "JUGADOR";
+        case 2: return "EMPATE";
+        case -1: return "MAQUINA";
+        default: return "DESCONOCIDO";
+    }
+}
+
+void generarNombreArchivo(char* nombreArchivo, size_t tam) {
+    time_t t = time(NULL);
+    struct tm* tm_info = localtime(&t);
+
+    strftime(nombreArchivo, tam, "informe-juego_%Y-%m-%d-%H-%M.txt", tm_info);
 }
