@@ -324,3 +324,56 @@ void map_lista(const t_lista* pl, void(*accion)(void*, void*), void* extra)
         pl=&(*pl)->nodoSig;
     }
 }
+
+int poner_topn_lista(t_lista * pl, unsigned n, const void * pd, unsigned tam, int (*cmp)(const void*, const void*))
+{
+    unsigned ce = 0;
+    Nodo* nue;
+    Nodo* elim;
+    Nodo** anteriorElim;
+
+    while(*pl && cmp((*pl)->elem, pd) >= 0)
+    {
+        ++ce;
+        pl = &((*pl)->nodoSig);
+    }
+
+
+    if(!(*pl) && ce == n)
+        return OK;
+
+
+    nue = (Nodo*)malloc(sizeof(Nodo));
+    if(!nue)
+        return LISTA_LLENA;
+
+    nue->elem = malloc(tam);
+    if(!(nue->elem))
+    {
+        free(nue);
+        return LISTA_LLENA;
+    }
+
+    memcpy(nue->elem, pd, tam);
+    nue->tamElem = tam;
+    nue->nodoSig= *pl;
+    *pl = nue;
+
+    while(*pl)
+    {
+        ++ce;
+        elim = *pl;
+        anteriorElim = pl;
+        pl = &((*pl)->nodoSig);
+    }
+
+
+    if(ce <= n)
+        return OK;
+
+
+    free(elim->elem);
+    free(elim);
+    *anteriorElim = NULL;
+    return OK;
+}

@@ -1,0 +1,271 @@
+-----------------------------
+JUGADOR: f
+-TABLERO:
+         X X X 
+         O     
+         O     
+-GANADOR : "MAQUINA"
+-PUNTAJE: -1
+-PUNTAJE TOTAL DE JUGADOR: -1
+
+
+-----------------------------
+JUGADOR: f
+-TABLERO:
+         X X X 
+         O     
+         O     
+-GANADOR : "MAQUINA"
+-PUNTAJE: -1
+-PUNTAJE TOTAL DE JUGADOR: -2
+
+
+-----------------------------
+JUGADOR: b
+-TABLERO:
+         X X X 
+         O     
+         O     
+-GANADOR : "MAQUINA"
+-PUNTAJE: -1
+-PUNTAJE TOTAL DE JUGADOR: -1
+
+
+-----------------------------
+JUGADOR: b
+-TABLERO:
+         X X X 
+         O     
+         O     
+-GANADOR : "MAQUINA"
+-PUNTAJE: -1
+-PUNTAJE TOTAL DE JUGADOR: -2
+
+
+-----------------------------
+JUGADOR: h
+-TABLERO:
+         X X X 
+         O     
+         O     
+-GANADOR : "MAQUINA"
+-PUNTAJE: -1
+-PUNTAJE TOTAL DE JUGADOR: -1
+
+
+-----------------------------
+JUGADOR: h
+-TABLERO:
+         X X X 
+         O     
+         O     
+-GANADOR : "MAQUINA"
+-PUNTAJE: -1
+-PUNTAJE TOTAL DE JUGADOR: -2
+
+
+-----------------------------
+JUGADOR: e
+-TABLERO:
+         X X X 
+           O   
+         O     
+-GANADOR : "MAQUINA"
+-PUNTAJE: -1
+-PUNTAJE TOTAL DE JUGADOR: -1
+
+
+-----------------------------
+JUGADOR: e
+-TABLERO:
+         X X O 
+         O O X 
+         X X O 
+-GANADOR : "EMPATE"
+-PUNTAJE: 2
+-PUNTAJE TOTAL DE JUGADOR: 1
+
+
+-----------------------------
+JUGADOR: d
+-TABLERO:
+         X X O 
+         O O X 
+         X X O 
+-GANADOR : "EMPATE"
+-PUNTAJE: 2
+-PUNTAJE TOTAL DE JUGADOR: 2
+
+
+-----------------------------
+JUGADOR: d
+-TABLERO:
+         X O   
+         X X O 
+         O   X 
+-GANADOR : "MAQUINA"
+-PUNTAJE: -1
+-PUNTAJE TOTAL DE JUGADOR: 1
+
+
+-----------------------------
+JUGADOR: c
+-TABLERO:
+         X X O 
+         O O X 
+         X X O 
+-GANADOR : "EMPATE"
+-PUNTAJE: 2
+-PUNTAJE TOTAL DE JUGADOR: 2
+
+
+-----------------------------
+JUGADOR: c
+-TABLERO:
+         X X O 
+         O O X 
+         X X O 
+-GANADOR : "EMPATE"
+-PUNTAJE: 2
+-PUNTAJE TOTAL DE JUGADOR: 4
+
+
+-----------------------------
+JUGADOR: j
+-TABLERO:
+         X O   
+         X O   
+         X     
+-GANADOR : "MAQUINA"
+-PUNTAJE: -1
+-PUNTAJE TOTAL DE JUGADOR: -1
+
+
+-----------------------------
+JUGADOR: j
+-TABLERO:
+         X O   
+         X X X 
+         O   O 
+-GANADOR : "MAQUINA"
+-PUNTAJE: -1
+-PUNTAJE TOTAL DE JUGADOR: -2
+
+
+-----------------------------
+JUGADOR: g
+-TABLERO:
+         X X O 
+         O O X 
+         X X O 
+-GANADOR : "EMPATE"
+-PUNTAJE: 2
+-PUNTAJE TOTAL DE JUGADOR: 2
+
+
+-----------------------------
+JUGADOR: g
+-TABLERO:
+         X O   
+         X X O 
+         O   X 
+-GANADOR : "MAQUINA"
+-PUNTAJE: -1
+-PUNTAJE TOTAL DE JUGADOR: 1
+
+
+-----------------------------
+JUGADOR: k
+-TABLERO:
+         X X O 
+         O X O 
+           X   
+-GANADOR : "MAQUINA"
+-PUNTAJE: -1
+-PUNTAJE TOTAL DE JUGADOR: -1
+
+
+-----------------------------
+JUGADOR: k
+-TABLERO:
+         X X O 
+         O X   
+           O X 
+-GANADOR : "MAQUINA"
+-PUNTAJE: -1
+-PUNTAJE TOTAL DE JUGADOR: -2
+
+
+-----------------------------
+JUGADOR: a
+-TABLERO:
+         X X X 
+           O O 
+               
+-GANADOR : "MAQUINA"
+-PUNTAJE: -1
+-PUNTAJE TOTAL DE JUGADOR: -1
+
+
+-----------------------------
+JUGADOR: a
+-TABLERO:
+         X O X 
+           X O 
+         O   X 
+-GANADOR : "MAQUINA"
+-PUNTAJE: -1
+-PUNTAJE TOTAL DE JUGADOR: -2
+
+
+-----------------------------
+-----------------------------
+
+Puntaje Final de la Tanda
+- f : -2
+- b : -2
+- h : -2
+- e : 1
+- d : 1
+- c : 4
+- j : -2
+- g : 1
+- k : -2
+- a : -2
+-----------------------------
+-----------------------------
+
+Jugador/es con Mayor Puntaje
+- c : 4
+-----------------------------
+JUGADOR: toms
+-TABLERO:
+         X X O 
+         O O X 
+         X X O 
+-GANADOR : "EMPATE"
+-PUNTAJE: 2
+-PUNTAJE TOTAL DE JUGADOR: 2
+
+
+-----------------------------
+JUGADOR: toms
+-TABLERO:
+         X X X 
+           O   
+           O   
+-GANADOR : "MAQUINA"
+-PUNTAJE: -1
+-PUNTAJE TOTAL DE JUGADOR: 1
+
+
+-----------------------------
+-----------------------------
+
+Puntaje Final de la Tanda
+- toms : 1
+-----------------------------
+-----------------------------
+
+Jugador/es con Mayor Puntaje
+- toms : 1

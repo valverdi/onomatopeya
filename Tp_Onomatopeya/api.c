@@ -6,6 +6,7 @@
 #define MAX_JUGADORES 100
 #define TAM_BUFFER_RESPUESTA 8192
 
+#define RANKINGN 10
 
 typedef struct {
     char buffer[TAM_BUFFER_RESPUESTA];
@@ -31,7 +32,7 @@ int cmpJugadores(const void* a, const void* b)
     const Jugador* jugadorA = (const Jugador*)a;
     const Jugador* jugadorB = (const Jugador*)b;
 
-    return (jugadorB->puntaje - jugadorA->puntaje);
+    return (jugadorA->puntaje - jugadorB->puntaje);
 }
 
 int obtener_jugadores(const char* base_url, const char* password, t_lista * lista, int max_jugadores) {
@@ -83,7 +84,7 @@ int obtener_jugadores(const char* base_url, const char* password, t_lista * list
             jugador.nombre[sizeof(jugador.nombre) - 1] = '\0';
             jugador.puntaje = puntaje->valueint;
 
-            poner_ordenado_lista(lista, &jugador, sizeof(Jugador), &cmpJugadores);
+            poner_topn_lista(lista, RANKINGN, &jugador, sizeof(Jugador), &cmpJugadores);
             count++;
         }
     }
@@ -149,4 +150,4 @@ void enviar_jugadores_con_curl(const char* url, const char* codigoGrupo, Jugador
     // Limpiar
     curl_slist_free_all(headers);
     curl_easy_cleanup(curl);
-} 
+}

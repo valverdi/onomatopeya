@@ -21,8 +21,8 @@
 #define ESPACIADO 30
 
 #define GANA 3
-#define PIERDE 2
-#define EMPATA -1
+#define PIERDE -1
+#define EMPATA 2
 
 #define VACIO ' '   // Celda vacía
 
@@ -68,7 +68,7 @@ void renderizarTexto(SDL_Renderer* renderer, const char* texto, TTF_Font* font, 
 
 void maquinaJuega(Tablero* t, char fichaMaquina, char fichaJugador);
 int evaluar(char tablero[3][3],char fichaJugador, char fichaMaquina);
-int hayMovimientos(char tablero[3][3]); 
+int hayMovimientos(char tablero[3][3]);
 int minimax(char tablero[3][3],int esMaximizador,char fichaJugador,char fichaMaquina);
 void mejorJugada(char tablero[3][3],int *mejorFila,int *mejorCol,char fichaJugador,char fichaMaquina);
 
@@ -248,7 +248,6 @@ void renderizarJugadorEnRanking(void* elem, void* extra) {
     *y += 40;  // Incrementar la posición vertical
 }
 
-
 void mostrarRanking(t_lista* jugadoresAPI, SDL_Renderer* renderer, TTF_Font* font, char* Url, char* Token) {
     printf("Mostrando Ranking...\n");
 
@@ -382,7 +381,6 @@ void empezar_partida(SDL_Renderer* renderer, TTF_Font* font, int cantidadJugador
     SDL_RenderPresent(renderer);
 }
 
-
 void jugarPartida(SDL_Renderer* renderer, TTF_Font* font, Jugador* jugador, t_lista* lr){
     Tablero tablero;
     inicializarTablero(&tablero);
@@ -390,12 +388,12 @@ void jugarPartida(SDL_Renderer* renderer, TTF_Font* font, Jugador* jugador, t_li
     char fichaJugador;
     char fichaMaquina;
 
-    int turnoJugador; // Empieza el jugador
+    int turnoJugador = 0; // Empieza el jugador
     int jugando = 1;
 
     Resultado resultado;
 
-    turnoJugador = rand() % 2;
+    //turnoJugador = rand() % 2;
 
     if(turnoJugador)
     {
@@ -504,7 +502,6 @@ void jugarPartida(SDL_Renderer* renderer, TTF_Font* font, Jugador* jugador, t_li
     }
 }
 
-
 void inicializarTablero(Tablero* t){
     for (int i = 0; i < 3; i++)
     {
@@ -514,7 +511,6 @@ void inicializarTablero(Tablero* t){
         }
     }
 }
-
 
 void dibujarTablero(SDL_Renderer* renderer, TTF_Font* font, Tablero* t) {
     char ficha;
@@ -983,60 +979,56 @@ void generarNombreArchivo(char* nombreArchivo, size_t tam) {
     strftime(nombreArchivo, tam, "informe-juego_%Y-%m-%d-%H-%M.txt", tm_info);
 }
 
-
-int evaluar(char tablero[3][3],char fichaJugador, char fichaMaquina) 
-{
+int evaluar(char tablero[3][3],char fichaJugador, char fichaMaquina){
     // Verificamos filas y columnas
-    for (int i = 0; i < 3; i++) 
+    for (int i = 0; i < 3; i++)
     {
-        if (tablero[i][0] == tablero[i][1] && tablero[i][1] == tablero[i][2]) 
+        if (tablero[i][0] == tablero[i][1] && tablero[i][1] == tablero[i][2])
         {
-            if (tablero[i][0] == fichaJugador) 
+            if (tablero[i][0] == fichaJugador)
                 return +10;
-            if (tablero[i][0] == fichaMaquina) 
+            if (tablero[i][0] == fichaMaquina)
                 return -10;
         }
-        if (tablero[0][i] == tablero[1][i] && tablero[1][i] == tablero[2][i]) 
+        if (tablero[0][i] == tablero[1][i] && tablero[1][i] == tablero[2][i])
         {
-            if (tablero[0][i] == fichaJugador) 
+            if (tablero[0][i] == fichaJugador)
                 return +10;
-            if (tablero[0][i] == fichaMaquina) 
+            if (tablero[0][i] == fichaMaquina)
                 return -10;
         }
     }
     // Verificamos diagonales
-    if ((tablero[0][0] == tablero[1][1] && tablero[1][1] == tablero[2][2]) || (tablero[0][2] == tablero[1][1] && tablero[1][1] == tablero[2][0])) 
+    if ((tablero[0][0] == tablero[1][1] && tablero[1][1] == tablero[2][2]) || (tablero[0][2] == tablero[1][1] && tablero[1][1] == tablero[2][0]))
     {
-        if (tablero[1][1] == fichaJugador) 
+        if (tablero[1][1] == fichaJugador)
             return +10;
-        if (tablero[1][1] == fichaMaquina) 
+        if (tablero[1][1] == fichaMaquina)
             return -10;
     }
     return 0; // Empate o juego en curso
 }
 
-int hayMovimientos(char tablero[3][3]) 
-{
-    for (int i = 0; i < 3; i++) 
+int hayMovimientos(char tablero[3][3]){
+    for (int i = 0; i < 3; i++)
     {
-        for (int j = 0; j < 3; j++) 
+        for (int j = 0; j < 3; j++)
         {
-            if (tablero[i][j] == VACIO)  
+            if (tablero[i][j] == VACIO)
                 return 1; // hay movimientos
         }
     }
-    return 0; // no hay movimientos 
+    return 0; // no hay movimientos
 }
 
-int minimax(char tablero[3][3],int esMaximizador,char fichaJugador,char fichaMaquina)
-{
+int minimax(char tablero[3][3],int esMaximizador,char fichaJugador,char fichaMaquina){
     int puntaje = evaluar(tablero,fichaJugador,fichaMaquina);
     int I,J;
     int mejor,actual;
 
     if(puntaje == -10 || puntaje == 10 || !hayMovimientos(tablero))
         return puntaje;
-    
+
     if(esMaximizador)
     {
         mejor = -1000;
@@ -1075,8 +1067,7 @@ int minimax(char tablero[3][3],int esMaximizador,char fichaJugador,char fichaMaq
     }
 }
 
-void mejorJugada(char tablero[3][3],int *mejorFila,int *mejorCol,char fichaJugador,char fichaMaquina)
-{
+void mejorJugada(char tablero[3][3],int *mejorFila,int *mejorCol,char fichaJugador,char fichaMaquina){
     int mejorValor = 1000; //maquina minimiza
     int I,J;
     int valor;

@@ -33,6 +33,8 @@ int ordenar_lista_seleccion(t_lista* pl, int(*cmp)(const void*, const void*));
 
 Nodo* buscarXclave(t_lista* pl, void* clave, size_t tamClave, int(*cmp)(const void*, const void*));
 
+int poner_topn_lista(t_lista * pl, unsigned n, const void * pd, unsigned tam, int (*cmp)(const void*, const void*));
+
 
 
 
