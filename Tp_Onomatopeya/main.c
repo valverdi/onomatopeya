@@ -388,12 +388,12 @@ void jugarPartida(SDL_Renderer* renderer, TTF_Font* font, Jugador* jugador, t_li
     char fichaJugador;
     char fichaMaquina;
 
-    int turnoJugador = 0; // Empieza el jugador
+    int turnoJugador; // Empieza el jugador
     int jugando = 1;
 
     Resultado resultado;
 
-    //turnoJugador = rand() % 2;
+    turnoJugador = rand() % 2;
 
     if(turnoJugador)
     {
