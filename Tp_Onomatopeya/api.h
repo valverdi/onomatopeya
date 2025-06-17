@@ -1,7 +1,7 @@
 #ifndef API_H
 #define API_H
 
-#include "macros.h"
+#include "Estructuras.h"
 #include "lista-enlazada.h"
 #include "cJson.h"
 

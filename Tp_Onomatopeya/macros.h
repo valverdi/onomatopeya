@@ -70,13 +70,6 @@ typedef struct sNodoA
 }NodoA;
 
 
-typedef struct {
-    char nombre[50];
-    int puntaje;
-} Jugador;
-
-
-
 int cmpInt(const void* dato1, const void* dato2);
 void prntInt(const void* dato);
 void accionPrntInt(void* dato, void* extra);

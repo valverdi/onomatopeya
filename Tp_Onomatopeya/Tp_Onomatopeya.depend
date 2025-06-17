@@ -2281,7 +2281,7 @@
 1750124595 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\lista-enlazada.h
 	"macros.h"
 
-1748905333 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\macros.h
+1750184728 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\macros.h
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -2289,7 +2289,7 @@
 1745635328 source:c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\macros.c
 	"macros.h"
 
-1750124595 source:c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\main.c
+1750187078 source:c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\main.c
 	<SDL2/SDL.h>
 	<SDL2/SDL_ttf.h>
 	<stdio.h>
@@ -2298,6 +2298,11 @@
 	<unistd.h>
 	"api.h"
 	"lista-enlazada.h"
+	"Archivos.h"
+	"Maquina.h"
+	"Interfaz.h"
+	"Funciones.h"
+	"Estructuras.h"
 
 1732392899 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\sdl2\include\sdl2\sdl.h
 	"SDL_main.h"
@@ -2705,8 +2710,8 @@
 	<curl/curl.h>
 	"api.h"
 
-1748908164 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\api.h
-	"macros.h"
+1750184728 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\api.h
+	"Estructuras.h"
 	"lista-enlazada.h"
 	"cJson.h"
 
@@ -2723,4 +2728,56 @@
 
 1748904958 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\cjson.h
 	<stddef.h>
+
+1750187061 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\estructuras.h
+	<SDL2/SDL.h>
+	<SDL2/SDL_ttf.h>
+	<windows.h>
+	<unistd.h>
+	<stdio.h>
+	<time.h>
+
+1750184063 source:c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\archivos.c
+	"Archivos.h"
+
+1750184795 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\archivos.h
+	<time.h>
+	"lista-enlazada.h"
+	"Estructuras.h"
+
+1750186996 source:c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\funciones.c
+	"Funciones.h"
+
+1750187046 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\funciones.h
+	"Estructuras.h"
+	"lista-enlazada.h"
+	"Interfaz.h"
+	"Partida.h"
+	"Archivos.h"
+	"api.h"
+
+1750185708 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\interfaz.h
+	<SDL2/SDL.h>
+	<SDL2/SDL_ttf.h>
+	<stdio.h>
+	<time.h>
+	"Estructuras.h"
+
+1750186139 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\partida.h
+	"lista-enlazada.h"
+	"Estructuras.h"
+	"Interfaz.h"
+	"Maquina.h"
+
+1750184795 c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\maquina.h
+	"Estructuras.h"
+
+1750185708 source:c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\interfaz.c
+	"Interfaz.h"
+
+1750184615 source:c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\maquina.c
+	"Maquina.h"
+
+1750186096 source:c:\users\tomas\onedrive\documentos\github\onomatopeya\tp_onomatopeya\partida.c
+	"Partida.h"
 
