@@ -73,7 +73,7 @@ int main() {
 
     SDL_Color colorTexto = {255, 255, 255, 255};
 
-    int centroX = (VENTANA_ANCHO - BOTON_ANCHO) / 2;
+    //int centroX = (VENTANA_ANCHO - BOTON_ANCHO) / 2;
     int inicioY = (VENTANA_ALTO - (3 * BOTON_ALTO + 2 * ESPACIADO)) / 2;
 
     SDL_Rect botonJugar   = {50, inicioY, BOTON_ANCHO, BOTON_ALTO};

@@ -44,6 +44,10 @@
 		</Unit>
 		<Unit filename="Archivos.h" />
 		<Unit filename="Estructuras.h" />
+		<Unit filename="Funciones.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Funciones.h" />
 		<Unit filename="Interfaz.c">
 			<Option compilerVar="CC" />
 		</Unit>

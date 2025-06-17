@@ -157,7 +157,7 @@ void pedirNombres(SDL_Renderer* renderer, TTF_Font* font, int cantidadJugadores,
 
 void empezar_partida(SDL_Renderer* renderer, TTF_Font* font, int cantidadJugadores, t_lista* p, int cantPartidas, char* Url, char* Token){
 
-    SDL_Color colorTexto = {255, 255, 255, 255};
+    //SDL_Color colorTexto = {255, 255, 255, 255};
 
     Jugador JugadorActual;
     memset(&JugadorActual,0,sizeof(JugadorActual));
@@ -169,7 +169,7 @@ void empezar_partida(SDL_Renderer* renderer, TTF_Font* font, int cantidadJugador
     int numeroAleatorio;
     srand((unsigned int)time(NULL));
 
-    while(!lista_vacia(p) || elementosRestantes > 0)
+    while(elementosRestantes > 0)
     {
         //elegir random
         if(elementosRestantes <= 0) {

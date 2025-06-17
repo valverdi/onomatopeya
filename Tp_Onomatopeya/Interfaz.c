@@ -55,7 +55,7 @@ void dibujarTablero(SDL_Renderer* renderer, TTF_Font* font, Tablero* t) {
     int fila;
     int col;
 
-    SDL_Color colorTexto = {255, 255, 255, 255};
+    //SDL_Color colorTexto = {255, 255, 255, 255};
 
     SDL_Color ColorX = {100, 149, 237, 255}; // Azul claro (Cornflower Blue)
     SDL_Color ColorO = {220, 20, 60, 255};   // Rojo carmesí (Crimson)
