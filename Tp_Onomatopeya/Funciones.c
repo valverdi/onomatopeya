@@ -17,7 +17,7 @@ void pedirCantidadJugadores(SDL_Renderer* renderer, TTF_Font* font, int* cantida
 
     // Capturar entrada
     int salirCaptura = 0;
-    char entrada[3] = {0}; // Para 2 dígitos como máximo
+    char entrada[3] = {0}; // Para 2 dï¿½gitos como mï¿½ximo
     int indice = 0;
 
     while (!salirCaptura) {
@@ -28,7 +28,7 @@ void pedirCantidadJugadores(SDL_Renderer* renderer, TTF_Font* font, int* cantida
                 return;
             }
             if (e.type == SDL_TEXTINPUT) {
-                if (indice < 2) { // No más de 2 caracteres
+                if (indice < 2) { // No mï¿½s de 2 caracteres
                     entrada[indice] = e.text.text[0];
                     indice++;
                     entrada[indice] = '\0';
@@ -59,7 +59,7 @@ void pedirCantidadJugadores(SDL_Renderer* renderer, TTF_Font* font, int* cantida
         SDL_RenderPresent(renderer);
     }
 
-    *cantidadJugadores = atoi(entrada); // Convertir entrada a número
+    *cantidadJugadores = atoi(entrada); // Convertir entrada a nï¿½mero
 }
 
 void pedirNombres(SDL_Renderer* renderer, TTF_Font* font, int cantidadJugadores, t_lista* p) {
@@ -73,7 +73,7 @@ void pedirNombres(SDL_Renderer* renderer, TTF_Font* font, int cantidadJugadores,
 
     for (i = 0; i < cantidadJugadores; i++) {
 
-        // Limpiar el área derecha antes de dibujar
+        // Limpiar el ï¿½rea derecha antes de dibujar
         SDL_SetRenderDrawColor(renderer, 33, 33, 33, 255);
         SDL_RenderFillRect(renderer, &areaDerecha);
 
@@ -81,7 +81,7 @@ void pedirNombres(SDL_Renderer* renderer, TTF_Font* font, int cantidadJugadores,
         char pregunta[50];
         sprintf(pregunta, "Jugador %d, ingrese nombre:", i + 1);
 
-        // Obtener el tamaño del texto de la pregunta para centrarlo
+        // Obtener el tamaï¿½o del texto de la pregunta para centrarlo
         SDL_Surface* surfacePregunta = TTF_RenderText_Solid(font, pregunta, colorTexto);
         SDL_Rect preguntaRect = {areaDerecha.x + (areaDerecha.w - surfacePregunta->w) / 2, 100, surfacePregunta->w, surfacePregunta->h};
         renderizarTexto(renderer, pregunta, font, colorTexto, &preguntaRect);
@@ -119,7 +119,7 @@ void pedirNombres(SDL_Renderer* renderer, TTF_Font* font, int cantidadJugadores,
                 }
             }
 
-            // Limpiar el área derecha antes de redibujar
+            // Limpiar el ï¿½rea derecha antes de redibujar
             SDL_SetRenderDrawColor(renderer, 33, 33, 33, 255);
             SDL_RenderFillRect(renderer, &areaDerecha);
 
@@ -139,7 +139,7 @@ void pedirNombres(SDL_Renderer* renderer, TTF_Font* font, int cantidadJugadores,
                 renderizarTexto(renderer, entrada, font, colorTexto, &respuestaRect);
             }
 
-            // Presentar la actualización de la pantalla
+            // Presentar la actualizaciï¿½n de la pantalla
             SDL_RenderPresent(renderer);
         }
 
@@ -179,7 +179,7 @@ void empezar_partida(SDL_Renderer* renderer, TTF_Font* font, int cantidadJugador
         numeroAleatorio = rand() % elementosRestantes;
 
         if(numeroAleatorio < 0 || numeroAleatorio >= elementosRestantes) {
-            printf("Posición inválida: %d\n", numeroAleatorio);
+            printf("PosiciÃ³n invÃ¡lida: %d\n", numeroAleatorio);
             break;
         }
 
